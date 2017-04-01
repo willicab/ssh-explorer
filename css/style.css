@@ -1,0 +1,29 @@
+input {
+    margin-bottom: 1rem;
+}
+#login {
+    margin-top: 20rem;
+}
+#main {
+    display: none;
+}
+.list-file, .list-up,  .text, .plain, .x-empty{
+    cursor: pointer;
+    padding-left: 50px;
+    background: transparent url(../img/file.png) center left no-repeat;
+    background-size: 40px;
+}
+.zip, gzip {background: transparent url(../img/zip.png) center left no-repeat;background-size: 40px;}
+.xml {background: transparent url(../img/xml.png) center left no-repeat;background-size: 40px;}
+.pdf {background: transparent url(../img/pdf.png) center left no-repeat;background-size: 40px;}
+.image {background: transparent url(../img/image.png) center left no-repeat;background-size: 40px;}
+.video {background: transparent url(../img/video.png) center left no-repeat;background-size: 40px;}
+.x-php {background: transparent url(../img/php.png) center left no-repeat;background-size: 40px;}
+.html {background: transparent url(../img/html.png) center left no-repeat;background-size: 40px;}
+.directory {background: transparent url(../img/directory.png) center left no-repeat;background-size: 40px;}
+.list-up {background: transparent url(../img/folder-up.png) center left no-repeat;background-size: 40px;}
+#toolBar img {width: 24px;}
+/*.action {display:none;}*/
+@media only screen and (max-width: 767px) {
+    #login {margin-top:2rem;}
+}
