@@ -86,7 +86,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-primary" id="btnEditorSave">Save changes</button>
                         </div>
                     </div>
                 </div>
@@ -172,6 +172,9 @@
                         touch(actualPath, $('#txtDialogInput').val());
                         break;
                 }
+            });
+            $("#btnEditorSave").click(function(){
+                saveText($('#editor').attr('data-file'), $('#editor').val());
             });
             $("#btnNewFile").click(function(){
                 $('#dialogInput').attr("data-action", "touch");

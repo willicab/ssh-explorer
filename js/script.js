@@ -45,6 +45,15 @@ function refreshList(data) {
         return false;
     }
 }
+
+function saveText(path, text) {
+    console.log('save '+path);
+    $.post("include/saveText.php", {host:host, port:port, username:username, password:password, path:path, text:text}, function( data ) {
+        console.log(data);
+        $('#textEditor').modal('hide');
+    });
+}
+
 function touch(path, file) {
     console.log('touch '+path+file);
     $.post("include/touch.php", {host:host, port:port, username:username, password:password, path:path, file:file}, function( data ) {
@@ -67,7 +76,9 @@ function cat(path) {
         json = JSON.parse(data);
         if (json.error == 0) {
             $('#editor').val(json.data);
+            $('#editor').attr('data-file', path);
             $('#textEditor').modal('show');
+            
         }
     });
 }
