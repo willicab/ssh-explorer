@@ -4,39 +4,60 @@ function cd(path) {
     $('#lstFiles').html('<img src="img/loader.gif">');
     $('#titlePath').val(path);
     $.post("include/cd.php", {host:host, port:port, username:username, password:password, path:path}, function( data ) {
-        json = JSON.parse(data);
-        if (json.error == 0) {
-            html = path == '/' ? '' : '<a class="list-group-item list-up">Folder up</a>';
-            $.each(json.data, function(index, value) {
-                className1 = value.mimeType.split('/')[0];
-                className2 = value.mimeType.split('/')[1];
-                html += '<a class="list-group-item list-file '+className1+' '+className2+'" ';
-                html += 'data-link="'+value.link+'" ';
-                html += 'data-rights="'+value.rights+'" ';
-                html += 'data-owner="'+value.owner+'" ';
-                html += 'data-group="'+value.group+'" ';
-                html += 'data-size="'+value.size+'" ';
-                html += 'data-accessDate="'+value.accessDate+'" ';
-                html += 'data-modificationDate="'+value.modificationDate+'" ';
-                html += 'data-mimeType="'+value.mimeType+'" ';
-                html += 'data-name="'+value.name+'">';
-                html += '<input class="file-check" type="checkbox" style="float:right" ';
-                html += 'data-link="'+value.link+'" ';
-                html += 'data-perms="'+value.rights+'" ';
-                html += 'data-owner="'+value.owner+'" ';
-                html += 'data-group="'+value.group+'" ';
-                html += 'data-size="'+value.size+'" ';
-                html += 'data-accessDate="'+value.accessDate+'" ';
-                html += 'data-modificationDate="'+value.modificationDate+'" ';
-                html += 'data-mimeType="'+value.mimeType+'" ';
-                html += 'data-name="'+value.name+'">';
-                html += value.name+'</a>\n';
-            });
-            $('#lstFiles').html(html);
-            refreshListFile();
-        } else {
-            $('#lstFiles').html(oldHtml);
-        }
+        console.log(data);
+        refreshList(data);
+    });
+}
+function refreshList(data) {
+    json = JSON.parse(data);
+    if (json.error == 0) {
+        html = actualPath == '/' ? '' : '<a class="list-group-item list-up">Folder up</a>';
+        $.each(json.data, function(index, value) {
+            className1 = value.mimeType.split('/')[0];
+            className2 = value.mimeType.split('/')[1];
+            html += '<a class="list-group-item list-file '+className1+' '+className2+'" ';
+            html += 'data-link="'+value.link+'" ';
+            html += 'data-rights="'+value.rights+'" ';
+            html += 'data-owner="'+value.owner+'" ';
+            html += 'data-group="'+value.group+'" ';
+            html += 'data-size="'+value.size+'" ';
+            html += 'data-accessDate="'+value.accessDate+'" ';
+            html += 'data-modificationDate="'+value.modificationDate+'" ';
+            html += 'data-mimeType="'+value.mimeType+'" ';
+            html += 'data-name="'+value.name+'">';
+            html += '<input class="file-check" type="checkbox" style="float:right" ';
+            html += 'data-link="'+value.link+'" ';
+            html += 'data-perms="'+value.rights+'" ';
+            html += 'data-owner="'+value.owner+'" ';
+            html += 'data-group="'+value.group+'" ';
+            html += 'data-size="'+value.size+'" ';
+            html += 'data-accessDate="'+value.accessDate+'" ';
+            html += 'data-modificationDate="'+value.modificationDate+'" ';
+            html += 'data-mimeType="'+value.mimeType+'" ';
+            html += 'data-name="'+value.name+'">';
+            html += value.name+'</a>\n';
+        });
+        $('#lstFiles').html(html);
+        refreshListFile();
+        return true;
+    } else {
+        $('#lstFiles').html(oldHtml);
+        return false;
+    }
+}
+function touch(path, file) {
+    console.log('touch '+path+file);
+    $.post("include/touch.php", {host:host, port:port, username:username, password:password, path:path, file:file}, function( data ) {
+        $('#dialogInput').modal('hide');
+        refreshList(data);
+    });
+}
+
+function mkdir(path, file) {
+    console.log('mkdir '+path+file);
+    $.post("include/mkdir.php", {host:host, port:port, username:username, password:password, path:path, file:file}, function( data ) {
+        $('#dialogInput').modal('hide');
+        refreshList(data);
     });
 }
 

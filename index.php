@@ -44,8 +44,8 @@
                         <div class="panel-body list-group">
                             <div class="btn-toolbar" role="toolbar" aria-label="...">
                                 <div class="btn-group" role="group" aria-label="generalActions" id="toolBar">
-                                    <button type="button" class="btn btn-default"><img src="img/folder-new.png"></button>
-                                    <button type="button" class="btn btn-default"><img src="img/file-new.png"></button>
+                                    <button id="btnNewFolder" type="button" class="btn btn-default"><img src="img/folder-new.png"></button>
+                                    <button id="btnNewFile" type="button" class="btn btn-default"><img src="img/file-new.png"></button>
                                     <button type="button" class="btn btn-default"><img src="img/upload.png"></button>
                                     <button type="button" class="btn btn-default"><img src="img/search.png"></button>
                                     <button type="button" class="btn btn-default"><img src="img/console.png"></button>
@@ -74,12 +74,12 @@
                 </div>
             </div>
             <!-- Modal Editor-->
-            <div class="modal fade" id="textEditor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal fade" id="textEditor" tabindex="-1" role="dialog" aria-labelledby="textEditorTitle">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel">Text Editor</h4>
+                            <h4 class="modal-title" id="textEditorTitle">Text Editor</h4>
                         </div>
                         <div class="modal-body">
                             <textarea id="editor" style="width:100%;height:300px;"></textarea>
@@ -92,18 +92,36 @@
                 </div>
             </div>
             <!-- Modal Imager Viewer-->
-            <div class="modal fade" id="imageViewer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal fade" id="imageViewer" tabindex="-1" role="dialog" aria-labelledby="imageViewerLabel">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel">Image Viewer</h4>
+                            <h4 class="modal-title" id="imageViewerLabel">Image Viewer</h4>
                         </div>
                         <div class="modal-body" style="text-align:center">
                             <img id="viewer" src="img/image.png" style="max-width:100%">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal Dialog Input-->
+            <div class="modal fade" id="dialogInput" tabindex="-1" role="dialog" aria-labelledby="dialogInputLabel" data-action="">
+                <div class="modal-dialog modal-sg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="dialogInputLabel"></h4>
+                        </div>
+                        <div class="modal-body" style="text-align:center">
+                            <input type="text" id="txtDialogInput" placeholder="" class="form-control">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" id="btnDialogInputAccept">Accept</button>
                         </div>
                     </div>
                 </div>
@@ -116,6 +134,7 @@
     <script>
         var host, port, username, password;
         var p
+        oldHtml = '';
         actualPath = '/';
         $(document).ready(function () {
             $('#loginBtn').click(function(){
@@ -129,40 +148,10 @@
                 $.post("include/login.php", {host:host, port:port, username:username, password:password, path:actualPath}, function( data ) {
                     $("#loginBtn").prop("disabled", false);
                     $("#loginBtn").text("Login");
-                    console.log(data);
-                    json = JSON.parse(data);
-                    if (json.error == 0) {
-                        html = '';
-                        $.each(json.data, function(index, value) {
-                            className1 = value.mimeType.split('/')[0];
-                            className2 = value.mimeType.split('/')[1];
-                            html += '<a class="list-group-item list-file '+className1+' '+className2+'" ';
-                            html += 'data-link="'+value.link+'" ';
-                            html += 'data-perms="'+value.rights+'" ';
-                            html += 'data-owner="'+value.owner+'" ';
-                            html += 'data-group="'+value.group+'" ';
-                            html += 'data-size="'+value.size+'" ';
-                            html += 'data-accessDate="'+value.accessDate+'" ';
-                            html += 'data-modificationDate="'+value.modificationDate+'" ';
-                            html += 'data-mimeType="'+value.mimeType+'" ';
-                            html += 'data-name="'+value.name+'">';
-                            html += '<input class="file-check" type="checkbox" style="float:right" ';
-                            html += 'data-link="'+value.link+'" ';
-                            html += 'data-perms="'+value.rights+'" ';
-                            html += 'data-owner="'+value.owner+'" ';
-                            html += 'data-group="'+value.group+'" ';
-                            html += 'data-size="'+value.size+'" ';
-                            html += 'data-accessDate="'+value.accessDate+'" ';
-                            html += 'data-modificationDate="'+value.modificationDate+'" ';
-                            html += 'data-mimeType="'+value.mimeType+'" ';
-                            html += 'data-name="'+value.name+'">';
-                            html += value.name+'</a>\n';
-                        });
-                        $('#lstFiles').html(html);
+                    if (refreshList(data)) {
                         $('#login').fadeOut(500, function(){
                             $('#main').fadeIn(500);
                         });
-                        refreshListFile();
                     } else {
                         $("#loginBtn").prop("disabled", false);
                         $("#loginBtn").text("Login");
@@ -173,6 +162,30 @@
             });
             $("#btnCD").click(function(){
                 cd($("#btnCD").val());
+            });
+            $('#btnDialogInputAccept').click(function(){
+                switch($('#dialogInput').attr("data-action")) {
+                    case "mkdir":
+                        mkdir(actualPath, $('#txtDialogInput').val());
+                        break;
+                    case "touch":
+                        touch(actualPath, $('#txtDialogInput').val());
+                        break;
+                }
+            });
+            $("#btnNewFile").click(function(){
+                $('#dialogInput').attr("data-action", "touch");
+                $('#dialogInputLabel').text("Create File");
+                $('#txtDialogInput').prop('placeholder', 'Insert File Name');
+                $('#txtDialogInput').val('')
+                $('#dialogInput').modal('show');
+            });
+            $("#btnNewFolder").click(function(){
+                $('#dialogInput').attr("data-action", "mkdir");
+                $('#dialogInputLabel').text("Create Folder");
+                $('#txtDialogInput').prop('placeholder', 'Insert Folder Name');
+                $('#txtDialogInput').val('')
+                $('#dialogInput').modal('show');
             });
         });
     </script>
