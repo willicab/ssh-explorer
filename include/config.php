@@ -1,4 +1,8 @@
 <?php
+
+    $config = array();
+    $config["root"] = "/var/www/html";
+
     include_once 'Net/SSH2.php';
     $host = $_POST["host"];
     $port = $_POST["port"];
@@ -13,5 +17,3 @@
         exit('{"error":1, "data":[{"message":"login error", "host":"'.$host.'", "port":"'.$port.'", "username":"'.$username.'", "password":"'.$password.'"}]}');
     }
 
-    $config = array();
-    $config["root"] = "/var/www/html";

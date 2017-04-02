@@ -6,6 +6,6 @@ include_once 'config.php';
 
 $path = str_replace("//", "/", $config["root"]."/".$_POST["path"]);
 
-$command = "cat $path";
+$command = "cat '$path'";
 $res = $ssh->exec($command);
 echo json_encode(array("error"=>0, "data"=>array($res)));
