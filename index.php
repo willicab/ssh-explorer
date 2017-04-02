@@ -37,7 +37,7 @@
                             <div class="input-group">
                                 <input type="text" class="form-control" id="titlePath" value="/">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button"><img src="img/play.png" width="20"></button>
+                                    <button class="btn btn-default" type="button" id="btnCD"><img src="img/play.png" width="20"></button>
                                 </span>
                             </div><!-- /input-group -->
                         </div>
@@ -126,42 +126,43 @@
                 password = $("#loginPassword").val();
                 $("#loginBtn").prop("disabled", true);
                 $("#loginBtn").html('<img src="img/loader.gif">');
-                $.get("include/login.php", {host:host, port:port, username:username, password:password, path:actualPath}, function( data ) {
+                $.post("include/login.php", {host:host, port:port, username:username, password:password, path:actualPath}, function( data ) {
+                    $("#loginBtn").prop("disabled", false);
+                    $("#loginBtn").text("Login");
+                    console.log(data);
                     json = JSON.parse(data);
                     if (json.error == 0) {
                         html = '';
                         $.each(json.data, function(index, value) {
-                            className1 = value.mimetype.split('/')[0];
-                            className2 = value.mimetype.split('/')[1];
+                            className1 = value.mimeType.split('/')[0];
+                            className2 = value.mimeType.split('/')[1];
                             html += '<a class="list-group-item list-file '+className1+' '+className2+'" ';
-                            html += 'data-mimetype="'+value.mimetype+'" ';
-                            html += 'data-perms="'+value.perms+'" ';
+                            html += 'data-link="'+value.link+'" ';
+                            html += 'data-perms="'+value.rights+'" ';
                             html += 'data-owner="'+value.owner+'" ';
                             html += 'data-group="'+value.group+'" ';
                             html += 'data-size="'+value.size+'" ';
-                            html += 'data-date="'+value.date+'" ';
-                            html += 'data-time="'+value.time+'" ';
-                            html += 'data-file="'+value.file+'" ';
-                            html += 'data-link="'+value.link+'">';
+                            html += 'data-accessDate="'+value.accessDate+'" ';
+                            html += 'data-modificationDate="'+value.modificationDate+'" ';
+                            html += 'data-mimeType="'+value.mimeType+'" ';
+                            html += 'data-name="'+value.name+'">';
                             html += '<input class="file-check" type="checkbox" style="float:right" ';
-                            html += 'data-mimetype="'+value.mimetype+'" ';
-                            html += 'data-perms="'+value.perms+'" ';
+                            html += 'data-link="'+value.link+'" ';
+                            html += 'data-perms="'+value.rights+'" ';
                             html += 'data-owner="'+value.owner+'" ';
                             html += 'data-group="'+value.group+'" ';
                             html += 'data-size="'+value.size+'" ';
-                            html += 'data-date="'+value.date+'" ';
-                            html += 'data-time="'+value.time+'" ';
-                            html += 'data-file="'+value.file+'" ';
-                            html += 'data-link="'+value.link+'">';
-                            html += value.file+'</a>\n';
+                            html += 'data-accessDate="'+value.accessDate+'" ';
+                            html += 'data-modificationDate="'+value.modificationDate+'" ';
+                            html += 'data-mimeType="'+value.mimeType+'" ';
+                            html += 'data-name="'+value.name+'">';
+                            html += value.name+'</a>\n';
                         });
                         $('#lstFiles').html(html);
                         $('#login').fadeOut(500, function(){
                             $('#main').fadeIn(500);
                         });
                         refreshListFile();
-                        $("#loginBtn").prop("disabled", false);
-                        $("#loginBtn").text("Login");
                     } else {
                         $("#loginBtn").prop("disabled", false);
                         $("#loginBtn").text("Login");
@@ -169,6 +170,9 @@
                         console.log("Error");
                     }
                 });
+            });
+            $("#btnCD").click(function(){
+                cd($("#btnCD").val());
             });
         });
     </script>
