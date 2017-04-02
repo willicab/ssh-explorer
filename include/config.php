@@ -1,10 +1,11 @@
 <?php
     include_once 'Net/SSH2.php';
-    $host = $_GET["host"];
-    $port = $_GET["port"];
-    $username = $_GET["username"];
-    $password = $_GET["password"];
+    $host = $_POST["host"];
+    $port = $_POST["port"];
+    $username = $_POST["username"];
+    $password = $_POST["password"];
 
+    //$ssh = new Net_SSH2($host, $port); //185.69.53.40
     if (!($ssh = new Net_SSH2($host, $port))) {
         exit('{"error":101, "data":[{"message":"Network is unreachable", "host":"'.$host.'", "port":"'.$port.'", "username":"'.$username.'", "password":"'.$password.'"}]}');
     }

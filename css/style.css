@@ -7,6 +7,13 @@ input {
 #main {
     display: none;
 }
+#explorer {
+    height: 100%;
+}
+#lstFiles {
+    height: 100%;
+    overflow-y: scroll;
+}
 .list-file, .list-up,  .text, .plain, .x-empty{
     cursor: pointer;
     padding-left: 50px;
