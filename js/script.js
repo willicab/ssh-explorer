@@ -97,7 +97,7 @@ function getImage(path, mimetype) {
 
 function refreshListFile() {
     $('.list-file').click(function(){
-        html = '<h1>'+$(this).attr('data-file')+'</h1>';
+        html = '<h1>'+$(this).attr('data-name')+'</h1>';
         html += '<strong>Mime-Type: </strong>'+$(this).attr('data-mimeType')+'<br>';
         html += '<strong>Permissions: </strong>'+$(this).attr('data-rights')+'<br>';
         html += '<strong>Owner: </strong>'+$(this).attr('data-owner')+'<br>';
