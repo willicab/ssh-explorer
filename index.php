@@ -42,7 +42,7 @@
                                     <img src="img/file-new.png" width="16">
                                 </button>
                                 <button id="btnBashCmd" type="button" class="btn btn-default">
-                                    <img src="img/command.png" width="16">
+                                    <img src="img/console.png" width="16">
                                 </button>
                             </span>
                             <input type="text" class="form-control" id="titlePath" value="/">
