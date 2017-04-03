@@ -36,16 +36,19 @@
                         <div class="input-group" style="width:100%">
                             <span class="input-group-btn" style="width:1px">
                                 <button id="btnNewFolder" type="button" class="btn btn-default">
-                                    <img src="img/folder-new.png" width="20">
+                                    <img src="img/folder-new.png" width="16">
                                 </button>
                                 <button id="btnNewFile" type="button" class="btn btn-default">
-                                    <img src="img/file-new.png" width="20">
+                                    <img src="img/file-new.png" width="16">
+                                </button>
+                                <button id="btnBashCmd" type="button" class="btn btn-default">
+                                    <img src="img/command.png" width="16">
                                 </button>
                             </span>
                             <input type="text" class="form-control" id="titlePath" value="/">
                             <span class="input-group-btn" style="width:1px">
                                 <button class="btn btn-default" type="button" id="btnCD">
-                                    <img src="img/play.png" width="20">
+                                    <img src="img/play.png" width="16">
                                 </button>
                             </span>
                         </div><!-- /input-group -->
@@ -59,7 +62,7 @@
                         <div class="btn-group" role="toolbar" aria-label="fileActions" id="toolBar">
                         </div>
                     </form-->
-                    <p class="navbar-text" id="fileInfo">Signed <strong>in as Mark</strong> Otto</p>
+                    <p class="navbar-text" id="fileInfo"></p>
                 </nav>
             </div>
             <!-- Modal Editor-->
@@ -172,10 +175,20 @@
                         case "touch":
                             touch(actualPath, $('#txtDialogInput').val());
                             break;
+                        case "cmd":
+                            cmd($(actualPath, '#txtDialogInput').val());
+                            break;
                     }
                 });
                 $("#btnEditorSave").click(function(){
                     saveText($('#editor').attr('data-file'), $('#editor').val());
+                });
+                $("#btnBashCmd").click(function(){
+                    $('#dialogInput').attr("data-action", "cmd");
+                    $('#dialogInputLabel').text("Send Bash Command");
+                    $('#txtDialogInput').prop('placeholder', 'Insert command');
+                    $('#txtDialogInput').val('')
+                    $('#dialogInput').modal('show');
                 });
                 $("#btnNewFile").click(function(){
                     $('#dialogInput').attr("data-action", "touch");

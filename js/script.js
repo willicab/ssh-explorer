@@ -50,6 +50,14 @@ function refreshList(data) {
     }
 }
 
+function cmd(path, command) {
+    console.log('cmd '+command);
+    $.post("include/cmd.php", {host:host, port:port, username:username, password:password, path:path, command:command}, function( data ) {
+        $('#dialogInput').modal('hide');
+        console.log(data);
+    });
+}
+
 function saveText(path, text) {
     console.log('save '+path);
     $.post("include/saveText.php", {host:host, port:port, username:username, password:password, path:path, text:text}, function( data ) {
@@ -82,7 +90,7 @@ function cat(path) {
             $('#editor').val(json.data);
             $('#editor').attr('data-file', path);
             $('#textEditor').modal('show');
-            
+
         }
     });
 }
