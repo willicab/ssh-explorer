@@ -4,7 +4,7 @@ ini_set('display_errors', 1);
 
 include_once 'config.php';
 
-$path = str_replace("//", "/", $config["root"]."/".$_POST["path"]);
+$path = str_replace("../", "/", str_replace("//", "/", $config["root"]."/".$_POST["path"]));
 $text = str_replace('"', '\"', str_replace('$', '\$', $_POST["text"]));
 
 $command = "echo \"$text\" > '$path'";
