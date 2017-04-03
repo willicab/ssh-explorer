@@ -97,16 +97,7 @@ function getImage(path, mimetype) {
 
 function refreshListFile() {
     $('.list-file').click(function(){
-        html = '<h1>'+$(this).attr('data-name')+'</h1>';
-        html += '<strong>Mime-Type: </strong>'+$(this).attr('data-mimeType')+'<br>';
-        html += '<strong>Permissions: </strong>'+$(this).attr('data-rights')+'<br>';
-        html += '<strong>Owner: </strong>'+$(this).attr('data-owner')+'<br>';
-        html += '<strong>Group: </strong>'+$(this).attr('data-group')+'<br>';
-        html += '<strong>Size: </strong>'+formatBytes($(this).attr('data-size'), 1)+'<br>';
-        html += '<strong>Acceded: </strong>'+$(this).attr('data-accessDate')+'<br>';
-        html += '<strong>Modified: </strong>'+$(this).attr('data-modificationDate')+'<br>';
-        html += $(this).attr('data-link') != '' ? '<strong>Link to: </strong>'+$(this).attr('data-link')+'\n' : '';
-        $('#panelDetail').html(html);
+        $('#fileInfo').text('"'+$(this).attr('data-name')+'"'+($(this).attr('data-mimeType') == 'inode/directory' ? '' : ', ('+formatBytes($(this).attr('data-size'))+')'));
     })
     $('.list-file').dblclick(function(){
         mime1 = $(this).attr('data-mimeType').split('/')[0];

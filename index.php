@@ -8,7 +8,7 @@
         <link href="css/style.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
-        <div class="container">
+        <div class="container-fluid">
             <div class="row" id="login">
                 <div class="col-md-4"></div>
                 <div class="col-md-4">
@@ -31,47 +31,44 @@
                 </div>
             </div>
             <div class="row" id="main">
-                <div class="col-md-8" id="explorer">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="titlePath" value="/">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button" id="btnCD"><img src="img/play.png" width="20"></button>
-                                </span>
-                            </div><!-- /input-group -->
-                        </div>
-                        <div class="panel-body list-group">
-                            <div class="btn-toolbar" role="toolbar" aria-label="...">
-                                <div class="btn-group" role="group" aria-label="generalActions" id="toolBar">
-                                    <button id="btnNewFolder" type="button" class="btn btn-default"><img src="img/folder-new.png"></button>
-                                    <button id="btnNewFile" type="button" class="btn btn-default"><img src="img/file-new.png"></button>
-                                    <button type="button" class="btn btn-default"><img src="img/upload.png"></button>
-                                    <button type="button" class="btn btn-default"><img src="img/search.png"></button>
-                                    <button type="button" class="btn btn-default"><img src="img/console.png"></button>
-                                    <button type="button" class="btn btn-default"><img src="img/refresh.png"></button>
-                                </div>
-                                <div class="btn-group" role="group" aria-label="fileActions" id="toolBar">
-                                    <button type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/copy.png"></button>
-                                    <button type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/move.png"></button>
-                                    <button type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/delete.png"></button>
-                                    <button type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/rename.png"></button>
-                                    <button type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/list-checks.png"></button>
-                                    <button type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/download.png"></button>
-                                    <button type="button" class="btn btn-default action action-folder action-file"><img src="img/compress.png"></button>
-                                    <button type="button" class="btn btn-default action action-zip"><img src="img/uncompress.png"></button>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="lstFiles"></div>
-                    </div>
+                <nav class="navbar navbar-default navbar-fixed-top">
+                    <form class="navbar-form navbar-left" role="toolbar" style="width:100%">
+                        <div class="input-group" style="width:100%">
+                            <span class="input-group-btn" style="width:1px">
+                                <button id="btnNewFolder" type="button" class="btn btn-default">
+                                    <img src="img/folder-new.png" width="20">
+                                </button>
+                                <button id="btnNewFile" type="button" class="btn btn-default">
+                                    <img src="img/file-new.png" width="20">
+                                </button>
+                            </span>
+                            <input type="text" class="form-control" id="titlePath" value="/">
+                            <span class="input-group-btn" style="width:1px">
+                                <button class="btn btn-default" type="button" id="btnCD">
+                                    <img src="img/play.png" width="20">
+                                </button>
+                            </span>
+                        </div><!-- /input-group -->
+                    </form>
+                </nav>
+                <div style="background-color:#fff;margin-top:50px;margin-bottom:50px;height:100%">
+                    <div id="lstFiles"></div>
                 </div>
-                <div class="col-md-4" id="sideBar">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">Details</div>
-                        <div class="panel-body list-group" id="panelDetail"></div>
-                    </div>
-                </div>
+                <nav class="navbar navbar-default navbar-fixed-bottom">
+                    <!--form class="navbar-form navbar-left" role="toolbar">
+                        <div class="btn-group" role="toolbar" aria-label="fileActions" id="toolBar">
+                            <button type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/copy.png"></button>
+                            <button type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/move.png"></button>
+                            <button type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/delete.png"></button>
+                            <button type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/rename.png"></button>
+                            <button type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/list-checks.png"></button>
+                            <button type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/download.png"></button>
+                            <button type="button" class="btn btn-default action action-folder action-file"><img src="img/compress.png"></button>
+                            <button type="button" class="btn btn-default action action-zip"><img src="img/uncompress.png"></button>
+                        </div>
+                    </form-->
+                    <p class="navbar-text" id="fileInfo">Signed <strong>in as Mark</strong> Otto</p>
+                </nav>
             </div>
             <!-- Modal Editor-->
             <div class="modal fade" id="textEditor" tabindex="-1" role="dialog" aria-labelledby="textEditorTitle">
@@ -134,6 +131,7 @@
     <script>
         var host, port, username, password;
         var p
+        var timer;
         oldHtml = '';
         actualPath = '/';
         $(document).ready(function () {
