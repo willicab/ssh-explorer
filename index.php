@@ -57,14 +57,6 @@
                 <nav class="navbar navbar-default navbar-fixed-bottom">
                     <!--form class="navbar-form navbar-left" role="toolbar">
                         <div class="btn-group" role="toolbar" aria-label="fileActions" id="toolBar">
-                            <button type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/copy.png"></button>
-                            <button type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/move.png"></button>
-                            <button type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/delete.png"></button>
-                            <button type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/rename.png"></button>
-                            <button type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/list-checks.png"></button>
-                            <button type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/download.png"></button>
-                            <button type="button" class="btn btn-default action action-folder action-file"><img src="img/compress.png"></button>
-                            <button type="button" class="btn btn-default action action-zip"><img src="img/uncompress.png"></button>
                         </div>
                     </form-->
                     <p class="navbar-text" id="fileInfo">Signed <strong>in as Mark</strong> Otto</p>
@@ -123,73 +115,83 @@
                     </div>
                 </div>
             </div>
+            <div class="btn-group-vertical" role="group" aria-label="..." id="tooltip" style="position:absolute;display:none;">
+                <button type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/copy.png"> Copy to</button>
+                <button type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/move.png">Move to</button>
+                <button type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/rename.png"> Rename</button>
+                <button type="button" class="btn btn-default action action-folder action-file"><img src="img/compress.png"> Compress</button>
+                <button type="button" class="btn btn-default action action-zip"><img src="img/uncompress.png"> Extract</button>
+                <button type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/delete.png"> Delete</button>
+                <button type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/list-checks.png">Check Rights</button>
+                <button type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/download.png">Download</button>
+            </div>
         </div>
-    </body>
-    <script src="js/jquery-2.2.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/script.js"></script>
-    <script>
-        var host, port, username, password;
-        var p
-        var timer;
-        oldHtml = '';
-        actualPath = '/';
-        $(document).ready(function () {
-            $('#loginBtn').click(function(){
-                console.log("Login")
-                host = $("#loginHost").val();
-                port = $("#loginPort").val();
-                username = $("#loginUsername").val();
-                password = $("#loginPassword").val();
-                $("#loginBtn").prop("disabled", true);
-                $("#loginBtn").html('<img src="img/loader.gif">');
-                $.post("include/login.php", {host:host, port:port, username:username, password:password, path:actualPath}, function( data ) {
-                    console.log(data);
-                    $("#loginBtn").prop("disabled", false);
-                    $("#loginBtn").text("Login");
-                    if (refreshList(data)) {
-                        $('#login').fadeOut(500, function(){
-                            $('#main').fadeIn(500);
-                        });
-                    } else {
+        <script src="js/jquery-2.2.1.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/script.js"></script>
+        <script>
+            var host, port, username, password;
+            var p
+            var timer;
+            oldHtml = '';
+            actualPath = '/';
+            $(document).ready(function () {
+                $('#loginBtn').click(function(){
+                    console.log("Login")
+                    host = $("#loginHost").val();
+                    port = $("#loginPort").val();
+                    username = $("#loginUsername").val();
+                    password = $("#loginPassword").val();
+                    $("#loginBtn").prop("disabled", true);
+                    $("#loginBtn").html('<img src="img/loader.gif">');
+                    $.post("include/login.php", {host:host, port:port, username:username, password:password, path:actualPath}, function( data ) {
+                        console.log(data);
                         $("#loginBtn").prop("disabled", false);
                         $("#loginBtn").text("Login");
-                        $('#loginError').fadeIn(500);
-                        console.log("Error");
+                        if (refreshList(data)) {
+                            $('#login').fadeOut(500, function(){
+                                $('#main').fadeIn(500);
+                            });
+                        } else {
+                            $("#loginBtn").prop("disabled", false);
+                            $("#loginBtn").text("Login");
+                            $('#loginError').fadeIn(500);
+                            console.log("Error");
+                        }
+                    });
+                });
+                $("#btnCD").click(function(){
+                    actualPath = $("#titlePath").val();
+                    cd(actualPath);
+                });
+                $('#btnDialogInputAccept').click(function(){
+                    switch($('#dialogInput').attr("data-action")) {
+                        case "mkdir":
+                            mkdir(actualPath, $('#txtDialogInput').val());
+                            break;
+                        case "touch":
+                            touch(actualPath, $('#txtDialogInput').val());
+                            break;
                     }
                 });
+                $("#btnEditorSave").click(function(){
+                    saveText($('#editor').attr('data-file'), $('#editor').val());
+                });
+                $("#btnNewFile").click(function(){
+                    $('#dialogInput').attr("data-action", "touch");
+                    $('#dialogInputLabel').text("Create File");
+                    $('#txtDialogInput').prop('placeholder', 'Insert File Name');
+                    $('#txtDialogInput').val('')
+                    $('#dialogInput').modal('show');
+                });
+                $("#btnNewFolder").click(function(){
+                    $('#dialogInput').attr("data-action", "mkdir");
+                    $('#dialogInputLabel').text("Create Folder");
+                    $('#txtDialogInput').prop('placeholder', 'Insert Folder Name');
+                    $('#txtDialogInput').val('')
+                    $('#dialogInput').modal('show');
+                });
             });
-            $("#btnCD").click(function(){
-                actualPath = $("#titlePath").val();
-                cd(actualPath);
-            });
-            $('#btnDialogInputAccept').click(function(){
-                switch($('#dialogInput').attr("data-action")) {
-                    case "mkdir":
-                        mkdir(actualPath, $('#txtDialogInput').val());
-                        break;
-                    case "touch":
-                        touch(actualPath, $('#txtDialogInput').val());
-                        break;
-                }
-            });
-            $("#btnEditorSave").click(function(){
-                saveText($('#editor').attr('data-file'), $('#editor').val());
-            });
-            $("#btnNewFile").click(function(){
-                $('#dialogInput').attr("data-action", "touch");
-                $('#dialogInputLabel').text("Create File");
-                $('#txtDialogInput').prop('placeholder', 'Insert File Name');
-                $('#txtDialogInput').val('')
-                $('#dialogInput').modal('show');
-            });
-            $("#btnNewFolder").click(function(){
-                $('#dialogInput').attr("data-action", "mkdir");
-                $('#dialogInputLabel').text("Create Folder");
-                $('#txtDialogInput').prop('placeholder', 'Insert Folder Name');
-                $('#txtDialogInput').val('')
-                $('#dialogInput').modal('show');
-            });
-        });
-    </script>
+        </script>
+    </body>
 </html>

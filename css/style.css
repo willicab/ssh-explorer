@@ -25,7 +25,8 @@ input {
 .html {background: transparent url(../img/html.png) center left no-repeat;background-size: 32px;}
 .directory {background: transparent url(../img/directory.png) center left no-repeat;background-size: 32px;}
 .list-up {background: transparent url(../img/folder-up.png) center left no-repeat;background-size: 32px;}
-#toolBar img {width: 20px;}
+#toolBar img, .btn img {width: 20px;}
+.action {text-align:left;}
 #fileInfo{text-align:center;width:100%;}
 /*.action {display:none;}*/
 @media only screen and (max-width: 767px) {

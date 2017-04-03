@@ -101,7 +101,7 @@ function getImage(path, mimetype) {
 
 function refreshListFile() {
     $('.list-file').click(function(){
-        $('#fileInfo').text('"'+$(this).attr('data-name')+'"'+($(this).attr('data-mimeType') == 'inode/directory' ? '' : ', ('+formatBytes($(this).attr('data-size'))+')'));
+        $('#fileInfo').text($(this).attr('data-name')+($(this).attr('data-mimeType') == 'inode/directory' ? '' : ' ('+formatBytes($(this).attr('data-size'))+')'));
     })
     $('.list-file').dblclick(function(){
         mime1 = $(this).attr('data-mimeType').split('/')[0];
@@ -123,6 +123,16 @@ function refreshListFile() {
         actualPath = newPath.join('/') + '/';
         cd(actualPath);
     })
+    $(".list-file").on("contextmenu",function(e){
+        $('#tooltip').css({
+            top: (($(window).height() - 50) > (e.pageY + $('#tooltip').height()) ? e.pageY : (e.pageY + 2 - $('#tooltip').height())) + 'px',
+            left: ($(window).width() > (e.pageX + $('#tooltip').width()) ? e.pageX : (e.pageX + 2 - $('#tooltip').width())) + 'px'
+        }).fadeIn(250);
+       return false;
+    });
+    $(document).click(function(){
+        $('#tooltip').fadeOut(250);
+    });
 }
 
 function formatBytes(bytes,decimals) {
