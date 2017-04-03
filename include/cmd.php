@@ -5,8 +5,8 @@ ini_set('display_errors', 1);
 include_once 'config.php';
 
 $path = str_replace("../", "/", str_replace("//", "/", $config["root"]."/".$_POST["path"]."/"));
-$cmd = $_POST["cmd"];
+$cmd = $_POST["command"];
 
 $command = "cd '$path' && $cmd";
 $result = $ssh->exec($command);
-echo json_encode(array("error"=>0, "data"=>array("$result")));
+echo json_encode(array("error"=>0, "data"=>array("cmd"=>$cmd,"res"=>$result)));
