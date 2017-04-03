@@ -2,7 +2,10 @@ function cd(path) {
     console.log('cd '+path);
     oldHtml = $('#lstFiles').html();
     $('#lstFiles').html('<img src="img/loader.gif">');
-    $('#titlePath').val(path);
+    path += '/';
+    actualPath += '/';
+    actualPath = actualPath.replace('//', '/')
+    $('#titlePath').val(path.replace('//', '/'));
     $.post("include/cd.php", {host:host, port:port, username:username, password:password, path:path}, function( data ) {
         console.log(data);
         refreshList(data);
@@ -41,6 +44,7 @@ function refreshList(data) {
         refreshListFile();
         return true;
     } else {
+        alert("Directory not found");
         $('#lstFiles').html(oldHtml);
         return false;
     }
@@ -112,6 +116,7 @@ function refreshListFile() {
         }
     })
     $('.list-up').dblclick(function(){
+        console.log(actualPath)
         newPath = actualPath.split('/');
         newPath.pop();
         newPath.pop();

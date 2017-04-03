@@ -144,6 +144,7 @@
                 $("#loginBtn").prop("disabled", true);
                 $("#loginBtn").html('<img src="img/loader.gif">');
                 $.post("include/login.php", {host:host, port:port, username:username, password:password, path:actualPath}, function( data ) {
+                    console.log(data);
                     $("#loginBtn").prop("disabled", false);
                     $("#loginBtn").text("Login");
                     if (refreshList(data)) {
@@ -159,7 +160,8 @@
                 });
             });
             $("#btnCD").click(function(){
-                cd($("#btnCD").val());
+                actualPath = $("#titlePath").val();
+                cd(actualPath);
             });
             $('#btnDialogInputAccept').click(function(){
                 switch($('#dialogInput').attr("data-action")) {

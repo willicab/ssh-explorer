@@ -4,10 +4,13 @@ ini_set('display_errors', 1);
 
 include_once 'config.php';
 
-$path = str_replace("../", "/", str_replace("//", "/", $config["root"]."/".$_POST["path"]));
+$path = str_replace("../", "/", str_replace("//", "/", $config["root"]."/".$_POST["path"]."/"));
 
-$command = "cd '$path' && paste -d '' <(stat -c \"%N#-#%A#-#%U#-#%G#-#%s#-#%x#-#%y#-#\" '$path'*) <(file -b --mime-type '$path'*)";
+$command = "[ -d '$path' ] && paste -d '' <(stat -c \"%N#-#%A#-#%U#-#%G#-#%s#-#%x#-#%y#-#\" '$path'*) <(file -b --mime-type '$path'*) || echo \"not found\"";
 $files = $ssh->exec($command);
+if (str_replace("\n", "", $files) == "not found") {
+    exit('{"error":1, "data":[{"message":"Directory '.$path.' not found"}]}');
+}
 $arrayFiles = array();
 $arrayFolders = array();
 $files = explode("\n", $files);
