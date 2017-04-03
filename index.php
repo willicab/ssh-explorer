@@ -45,7 +45,7 @@
                                     <img src="img/console.png" width="16">
                                 </button>
                             </span>
-                            <input type="text" class="form-control" id="titlePath" value="/">
+                            <input type="text" class="form-control" id="titlePath" value="/" style="height:36.5px">
                             <span class="input-group-btn" style="width:1px">
                                 <button class="btn btn-default" type="button" id="btnCD">
                                     <img src="img/play.png" width="16">
@@ -208,3 +208,4 @@
         </script>
     </body>
 </html>
+
