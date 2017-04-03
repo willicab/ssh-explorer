@@ -176,7 +176,7 @@
                             touch(actualPath, $('#txtDialogInput').val());
                             break;
                         case "cmd":
-                            cmd($(actualPath, '#txtDialogInput').val());
+                            cmd(actualPath, $('#txtDialogInput').val());
                             break;
                     }
                 });
