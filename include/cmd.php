@@ -9,4 +9,4 @@ $cmd = $_POST["cmd"];
 
 $command = "cd '$path' && $cmd";
 $result = $ssh->exec($command);
-echo json_encode(array("error"=>0, "data"=>array("$command\n\n$result")));
+echo json_encode(array("error"=>0, "data"=>array("$result")));
