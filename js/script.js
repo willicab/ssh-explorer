@@ -7,7 +7,6 @@ function cd(path) {
     actualPath = actualPath.replace('//', '/')
     $('#titlePath').val(path.replace('//', '/'));
     $.post("include/cd.php", {host:host, port:port, username:username, password:password, path:path}, function( data ) {
-        console.log(data);
         refreshList(data);
     });
 }
@@ -151,3 +150,4 @@ function formatBytes(bytes,decimals) {
        i = Math.floor(Math.log(bytes) / Math.log(k));
    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 }
+
