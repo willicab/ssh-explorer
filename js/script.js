@@ -1,3 +1,4 @@
+var txtCodeEditor = null;
 function cd(path) {
     console.log('cd '+path);
     oldHtml = $('#lstFiles').html();
@@ -85,11 +86,28 @@ function cat(path) {
     console.log('cat '+path);
     $.post("include/cat.php", {host:host, port:port, username:username, password:password, path:path}, function( data ) {
         json = JSON.parse(data);
+        var mixedMode = {
+           name: "htmlmixed",
+           scriptTypes: [{matches: /\/x-handlebars-template|\/x-mustache/i,
+                          mode: null},
+                         {matches: /(text|application)\/(x-)?vb(a|script)/i,
+                          mode: "vbscript"}]
+        };
         if (json.error == 0) {
-            $('#editor').val(json.data);
+            $('#editor').attr("data-val", json.data)
             $('#editor').attr('data-file', path);
+            txtCodeEditor.setValue('');
             $('#textEditor').modal('show');
-
+            $('#textEditor').on('shown.bs.modal', function () {
+                setMode($('#editor').attr("data-file"));
+                txtCodeEditor.setValue($('#editor').attr("data-val"));
+                /*
+                $('#saveTextFile').click(function(){
+                    console.log("Guardando");
+                    console.log(txtCodeEditor.getValue());
+                });
+                */
+            });
         }
     });
 }
@@ -149,5 +167,31 @@ function formatBytes(bytes,decimals) {
        sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
        i = Math.floor(Math.log(bytes) / Math.log(k));
    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+}
+
+function setMode(fileName) {
+    var val = fileName, m, mode, spec;
+    if (m = /.+\.([^.]+)$/.exec(val)) {
+        var info = CodeMirror.findModeByExtension(m[1]);
+        if (info) {
+            mode = info.mode;
+            spec = info.mime;
+        }
+    } else if (/\//.test(val)) {
+        var info = CodeMirror.findModeByMIME(val);
+        if (info) {
+            mode = info.mode;
+            spec = val;
+        }
+    } else {
+        mode = spec = val;
+    }
+    if (mode) {
+        console.log("spec", spec, "mode", mode);
+        txtCodeEditor.setOption("mode", spec);
+        CodeMirror.autoLoadMode(txtCodeEditor, mode);
+    } else {
+        console.log("spec", spec, "mode", mode);
+    }
 }
 

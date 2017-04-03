@@ -6,6 +6,7 @@
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <link href="css/bootstrap-theme.min.css" rel="stylesheet" type="text/css" />
         <link href="css/style.css" rel="stylesheet" type="text/css" />
+        <link href="css/codemirror.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
         <div class="container-fluid">
@@ -131,6 +132,9 @@
         </div>
         <script src="js/jquery-2.2.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
+        <script src="js/codemirror.js"></script>
+        <script src="js/mode/meta.js"></script>
+        <script src="js/addon/mode/loadmode.js"></script>
         <script src="js/script.js"></script>
         <script>
             var host, port, username, password;
@@ -138,7 +142,20 @@
             var timer;
             oldHtml = '';
             actualPath = '/';
+            var txtCodeEditor = '';
             $(document).ready(function () {
+                CodeMirror.modeURL = "js/mode/%N/%N.js";
+                var mixedMode = {
+                    name: "htmlmixed",
+                    scriptTypes: [{matches: /\/x-handlebars-template|\/x-mustache/i, mode: null},
+                    {matches: /(text|application)\/(x-)?vb(a|script)/i, mode: "vbscript"}]
+                };
+                txtCodeEditor = CodeMirror.fromTextArea($('#editor')[0], {
+                    theme: 'neat',
+                    mode: mixedMode,
+                    lineNumbers: true,
+                    lineWrapping: true,
+                });
                 $('#loginBtn').click(function(){
                     console.log("Login")
                     host = $("#loginHost").val();
@@ -208,4 +225,5 @@
         </script>
     </body>
 </html>
+
 
