@@ -6,7 +6,7 @@
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <link href="css/bootstrap-theme.min.css" rel="stylesheet" type="text/css" />
         <link href="css/style.css" rel="stylesheet" type="text/css" />
-        <link href="css/codemirror.css" rel="stylesheet" type="text/css" />
+        <link href="js/codemirror.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
         <div class="container-fluid">
@@ -205,7 +205,7 @@
                         }
                     });
                 });
-                
+
                 $("#btnCD").click(function(){
                     actualPath = $("#titlePath").val();
                     cd(actualPath);
@@ -251,6 +251,3 @@
         </script>
     </body>
 </html>
-
-
-
