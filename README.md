@@ -7,6 +7,7 @@ A simple web based SSH client
 * Saved text-plain edited files
 * Open image files
 * Execute custom bash comands
+* Show files information
 
 ## TODO
 * Check Rights of directories and files
@@ -17,3 +18,4 @@ A simple web based SSH client
 * Zip directories and files
 * Unzip directories and files
 * Download directories and files
+

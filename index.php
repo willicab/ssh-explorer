@@ -119,6 +119,31 @@
                     </div>
                 </div>
             </div>
+            <!-- Modal Command-->
+            <div class="modal fade" id="dialogCommand" tabindex="-1" role="dialog" aria-labelledby="dialogCommandLabel" data-action="">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="dialogCommandLabel">Comando Personalizado</h4>
+                        </div>
+                        <div class="modal-body" style="text-align:center">
+                            <div class="input-group" style="width:100%">
+                                <input type="text" class="form-control" id="txtCommand" value="" style="height:36.5px">
+                                <span class="input-group-btn" style="width:1px">
+                                    <button class="btn btn-default" type="button" id="btnCommand">
+                                        <img src="img/play.png" width="16">
+                                    </button>
+                                </span>
+                            </div><!-- /input-group -->
+                            <pre id="dialogCommandResult" style="text-align:left;background-color:#000;color:#0f0;font-family:monospace;max-height:30rem"></pre>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="btn-group-vertical" role="group" aria-label="..." id="tooltip" style="position:absolute;display:none;">
                 <button type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/copy.png"> Copy to</button>
                 <button type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/move.png">Move to</button>
@@ -180,9 +205,13 @@
                         }
                     });
                 });
+                
                 $("#btnCD").click(function(){
                     actualPath = $("#titlePath").val();
                     cd(actualPath);
+                });
+                $("#btnCommand").click(function(){
+                    cmd(actualPath, $('#txtCommand').val());
                 });
                 $('#btnDialogInputAccept').click(function(){
                     switch($('#dialogInput').attr("data-action")) {
@@ -192,20 +221,17 @@
                         case "touch":
                             touch(actualPath, $('#txtDialogInput').val());
                             break;
-                        case "cmd":
-                            cmd(actualPath, $('#txtDialogInput').val());
-                            break;
                     }
                 });
                 //$("#btnEditorSave").click(function(){
                 //    saveText($('#editor').attr('data-file'), $('#editor').val());
                 //});
                 $("#btnBashCmd").click(function(){
-                    $('#dialogInput').attr("data-action", "cmd");
-                    $('#dialogInputLabel').text("Send Bash Command");
-                    $('#txtDialogInput').prop('placeholder', 'Insert command');
-                    $('#txtDialogInput').val('')
-                    $('#dialogInput').modal('show');
+                    //$('#dialogInput').attr("data-action", "cmd");
+                    //$('#dialogInputLabel').text("Send Bash Command");
+                    //$('#txtDialogInput').prop('placeholder', 'Insert command');
+                    //$('#txtDialogInput').val('')
+                    $('#dialogCommand').modal('show');
                 });
                 $("#btnNewFile").click(function(){
                     $('#dialogInput').attr("data-action", "touch");

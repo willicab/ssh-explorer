@@ -59,10 +59,12 @@ function refreshList(data) {
 }
 
 function cmd(path, command) {
+    $('#dialogCommandResult').html('<img src="img/loader.gif">');
     console.log('cmd '+command);
     $.post("include/cmd.php", {host:host, port:port, username:username, password:password, path:path, command:command}, function( data ) {
-        $('#dialogInput').modal('hide');
-        console.log(data);
+        json = JSON.parse(data);
+        console.log(json.data.res);
+        $('#dialogCommandResult').html(json.data.res);
     });
 }
 
