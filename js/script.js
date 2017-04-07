@@ -195,6 +195,7 @@ function setMode(fileName) {
         mode = spec = val;
     }
     if (mode) {
+        console.log(spec, mode);
         txtCodeEditor.setOption("mode", spec);
         CodeMirror.autoLoadMode(txtCodeEditor, mode);
     } else {
