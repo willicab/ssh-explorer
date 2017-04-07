@@ -7,6 +7,7 @@
         <link href="css/bootstrap-theme.min.css" rel="stylesheet" type="text/css" />
         <link href="css/style.css" rel="stylesheet" type="text/css" />
         <link href="js/codemirror.css" rel="stylesheet" type="text/css" />
+        <link href="js/theme/neat.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
         <div class="container-fluid">
