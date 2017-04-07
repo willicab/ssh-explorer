@@ -55,7 +55,7 @@
                         </div><!-- /input-group -->
                     </form>
                 </nav>
-                <div style="background-color:#fff;margin-top:50px;margin-bottom:50px;height:100%">
+                <div style="background-color:#fff;margin-top:50px;margin-bottom:50px;max-height:100%;overflow:hidden">
                     <div id="lstFiles"></div>
                 </div>
                 <nav class="navbar navbar-default navbar-fixed-bottom">
@@ -251,5 +251,6 @@
         </script>
     </body>
 </html>
+
 
 
