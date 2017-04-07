@@ -18,7 +18,9 @@ function refreshList(data) {
         $.each(json.data, function(index, value) {
             className1 = value.mimeType.split('/')[0];
             className2 = value.mimeType.split('/')[1];
-            html += '<a class="list-group-item list-file '+className1+' '+className2+'" ';
+            html += '<div class="list-group-item row">\n';
+            html += '<div class="col-md-2">\n';
+            html += '<a class="list-file '+className1+' '+className2+'" ';
             html += 'data-link="'+value.link+'" ';
             html += 'data-rights="'+value.rights+'" ';
             html += 'data-owner="'+value.owner+'" ';
@@ -28,17 +30,23 @@ function refreshList(data) {
             html += 'data-modificationDate="'+value.modificationDate+'" ';
             html += 'data-mimeType="'+value.mimeType+'" ';
             html += 'data-name="'+value.name+'">';
-            html += '<input class="file-check" type="checkbox" style="float:right" ';
-            html += 'data-link="'+value.link+'" ';
-            html += 'data-perms="'+value.rights+'" ';
-            html += 'data-owner="'+value.owner+'" ';
-            html += 'data-group="'+value.group+'" ';
-            html += 'data-size="'+value.size+'" ';
-            html += 'data-accessDate="'+value.accessDate+'" ';
-            html += 'data-modificationDate="'+value.modificationDate+'" ';
-            html += 'data-mimeType="'+value.mimeType+'" ';
-            html += 'data-name="'+value.name+'">';
-            html += value.name+'</a>\n';
+            //html += '<input class="file-check" type="checkbox" style="float:right" ';
+            //html += 'data-link="'+value.link+'" ';
+            //html += 'data-perms="'+value.rights+'" ';
+            //html += 'data-owner="'+value.owner+'" ';
+            //html += 'data-group="'+value.group+'" ';
+            //html += 'data-size="'+value.size+'" ';
+            //html += 'data-accessDate="'+value.accessDate+'" ';
+            //html += 'data-modificationDate="'+value.modificationDate+'" ';
+            //html += 'data-mimeType="'+value.mimeType+'" ';
+            //html += 'data-name="'+value.name+'">';
+            html += value.name;
+            html += '</a>\n';
+            html += '</div><div class="col-md-2">'+value.mimeType;
+            html += '</div><div class="col-md-2">'+formatBytes(value.size);
+            html += '</div><div class="col-md-2">'+value.owner;
+            html += '</div><div class="col-md-2">'+value.rights;
+            html += '</div><div class="col-md-2">'+value.modificationDate+"</div></div>";
         });
         $('#lstFiles').html(html);
         refreshListFile();
@@ -101,12 +109,10 @@ function cat(path) {
             $('#textEditor').on('shown.bs.modal', function () {
                 setMode($('#editor').attr("data-file"));
                 txtCodeEditor.setValue($('#editor').attr("data-val"));
-                /*
-                $('#saveTextFile').click(function(){
-                    console.log("Guardando");
-                    console.log(txtCodeEditor.getValue());
+                $('#btnEditorSave').click(function(){
+                    console.log("Guardando", txtCodeEditor.getValue());
+                    saveText($('#editor').attr('data-file'), txtCodeEditor.getValue());
                 });
-                */
             });
         }
     });
@@ -187,11 +193,9 @@ function setMode(fileName) {
         mode = spec = val;
     }
     if (mode) {
-        console.log("spec", spec, "mode", mode);
         txtCodeEditor.setOption("mode", spec);
         CodeMirror.autoLoadMode(txtCodeEditor, mode);
     } else {
-        console.log("spec", spec, "mode", mode);
     }
 }
 

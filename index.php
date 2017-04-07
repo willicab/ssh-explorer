@@ -197,9 +197,9 @@
                             break;
                     }
                 });
-                $("#btnEditorSave").click(function(){
-                    saveText($('#editor').attr('data-file'), $('#editor').val());
-                });
+                //$("#btnEditorSave").click(function(){
+                //    saveText($('#editor').attr('data-file'), $('#editor').val());
+                //});
                 $("#btnBashCmd").click(function(){
                     $('#dialogInput').attr("data-action", "cmd");
                     $('#dialogInputLabel').text("Send Bash Command");
