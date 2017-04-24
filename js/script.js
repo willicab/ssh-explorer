@@ -19,8 +19,8 @@ function refreshList(data) {
             className1 = value.mimeType.split('/')[0];
             className2 = value.mimeType.split('/')[1];
             html += '<div class="list-group-item row">\n';
-            html += '<div class="col-md-2">\n';
-            html += '<a class="list-file '+className1+' '+className2+'" ';
+            //html += '<div class="col-md-2">\n';
+            html += '<a class="col-md-2 list-file '+className1+' '+className2+'" ';
             html += 'data-link="'+value.link+'" ';
             html += 'data-rights="'+value.rights+'" ';
             html += 'data-owner="'+value.owner+'" ';
@@ -42,7 +42,7 @@ function refreshList(data) {
             //html += 'data-name="'+value.name+'">';
             html += value.name;
             html += '</a>\n';
-            html += '</div><div class="col-md-2">'+value.mimeType;
+            html += '<div class="col-md-2">'+value.mimeType;
             html += '</div><div class="col-md-2">'+formatBytes(value.size);
             html += '</div><div class="col-md-2">'+value.owner;
             html += '</div><div class="col-md-2">'+value.rights;
@@ -201,4 +201,5 @@ function setMode(fileName) {
     } else {
     }
 }
+
 
