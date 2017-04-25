@@ -211,8 +211,23 @@
                     actualPath = $("#titlePath").val();
                     cd(actualPath);
                 });
+                $("#titlePath").keypress(function(e) {
+                    if(e.which == 13) {
+                    	$("#btnCD").trigger( "click" );
+                    }
+                });
                 $("#btnCommand").click(function(){
                     cmd(actualPath, $('#txtCommand').val());
+                });
+                $("#txtCommand").keypress(function(e) {
+                    if(e.which == 13) {
+                      	$("#btnCommand").trigger( "click" );
+                    }
+                });
+                $("#txtDialogInput").keypress(function(e) {
+                    if(e.which == 13) {
+                        $("#btnDialogInputAccept").trigger( "click" );
+                    }
                 });
                 $('#btnDialogInputAccept').click(function(){
                     switch($('#dialogInput').attr("data-action")) {
@@ -224,14 +239,7 @@
                             break;
                     }
                 });
-                //$("#btnEditorSave").click(function(){
-                //    saveText($('#editor').attr('data-file'), $('#editor').val());
-                //});
                 $("#btnBashCmd").click(function(){
-                    //$('#dialogInput').attr("data-action", "cmd");
-                    //$('#dialogInputLabel').text("Send Bash Command");
-                    //$('#txtDialogInput').prop('placeholder', 'Insert command');
-                    //$('#txtDialogInput').val('')
                     $('#dialogCommand').modal('show');
                 });
                 $("#btnNewFile").click(function(){
@@ -252,3 +260,5 @@
         </script>
     </body>
 </html>
+
+
