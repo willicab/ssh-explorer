@@ -72,7 +72,8 @@ function saveText(path, text) {
     console.log('save '+path);
     $.post("include/saveText.php", {host:host, port:port, username:username, password:password, path:path, text:text}, function( data ) {
         console.log(data);
-        $('#textEditor').modal('hide');
+      	alert('Salvado');
+        //$('#textEditor').modal('hide');
     });
 }
 
@@ -201,5 +202,6 @@ function setMode(fileName) {
     } else {
     }
 }
+
 
 
