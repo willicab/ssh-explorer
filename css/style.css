@@ -2,7 +2,7 @@ input {
     margin-bottom: 1rem;
 }
 #login {
-    margin-top: 20rem;
+    margin-top: 10rem;
 }
 #main {
     display: none;
@@ -28,6 +28,17 @@ input {
 #toolBar img, .btn img {width: 20px;}
 .action {text-align:left;}
 #fileInfo{text-align:center;width:100%;}
+#title {
+    text-align: center;
+}
+#title img {
+    width: 128px;
+    height: auto;
+}
+#title h1 {
+    margin: 1rem 0 2rem 0;
+    font-weight: bold;
+}
 /*.action {display:none;}*/
 @media only screen and (max-width: 767px) {
     #login {margin-top:2rem;}

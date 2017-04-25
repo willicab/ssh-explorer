@@ -3,6 +3,7 @@
     <head>
         <title>Explorer</title>
         <meta charset="UTF-8">
+        <link rel="icon" type="image/png" href="img/logo.png" />
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <link href="css/bootstrap-theme.min.css" rel="stylesheet" type="text/css" />
         <link href="css/style.css" rel="stylesheet" type="text/css" />
@@ -14,6 +15,10 @@
             <div class="row" id="login">
                 <div class="col-md-4"></div>
                 <div class="col-md-4">
+                    <div id="title">
+                        <img src="img/logo.png">
+                        <h1>ssh-explorer</h1>
+                    </div>
                     <div class="panel panel-default">
                         <div class="panel-heading">Login</div>
                         <div class="panel-body">
@@ -260,5 +265,3 @@
         </script>
     </body>
 </html>
-
-
