@@ -152,8 +152,7 @@
             </div>
             <div class="btn-group-vertical" role="group" aria-label="..." id="tooltip" style="position:absolute;display:none;">
                 <button id="btnCopy" type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/copy.png"> Copy to</button>
-                <button type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/move.png">Move to</button>
-                <button type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/rename.png"> Rename</button>
+                <button id="btnMove" type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/move.png">Rename/Move to</button>
                 <button type="button" class="btn btn-default action action-folder action-file"><img src="img/compress.png"> Compress</button>
                 <button type="button" class="btn btn-default action action-zip"><img src="img/uncompress.png"> Extract</button>
                 <button type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/delete.png"> Delete</button>
@@ -246,6 +245,9 @@
                         case "copy":
                             copy(actualPath, contextPath, $('#txtDialogInput').val());
                             break;
+                        case "move":
+                            move(actualPath, contextPath, $('#txtDialogInput').val());
+                            break;
                     }
                 });
                 $("#btnBashCmd").click(function(){
@@ -259,6 +261,13 @@
                     $('#dialogInput').attr("data-action", "copy");
                     $('#dialogInputLabel').text("Copy");
                     $('#txtDialogInput').prop('placeholder', 'Path to copy');
+                    $('#txtDialogInput').val(contextPath);
+                    $('#dialogInput').modal('show');
+                });
+                $("#btnMove").click(function(){
+                    $('#dialogInput').attr("data-action", "move");
+                    $('#dialogInputLabel').text("Rename/Move");
+                    $('#txtDialogInput').prop('placeholder', 'Path to move');
                     $('#txtDialogInput').val(contextPath);
                     $('#dialogInput').modal('show');
                 });
