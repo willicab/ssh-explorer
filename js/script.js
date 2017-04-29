@@ -14,7 +14,7 @@ function cd(path) {
 function refreshList(data) {
     json = JSON.parse(data);
     if (json.error == 0) {
-        html = actualPath == '/' ? '' : '<a class="list-group-item list-up">Folder up</a>';
+        html = actualPath == '/' ? '' : '<div class="list-group-item row"><a class="col-md-12 list-up">Folder up</a></div>';
         $.each(json.data, function(index, value) {
             className1 = value.mimeType.split('/')[0];
             className2 = value.mimeType.split('/')[1];

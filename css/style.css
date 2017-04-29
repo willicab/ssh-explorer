@@ -54,12 +54,12 @@ input {
 .CodeMirror {
   	height: 100% !important;
 }
+.list-group-item {
+    padding: 0 0 0 2rem!important;
+    line-height: 3.5rem;
+}
 /*.action {display:none;}*/
 @media only screen and (max-width: 767px) {
     #login {margin-top:2rem;}
     .navbar-form{margin-top:0;margin-bottom:0;margin-left:0;border:0 solid transparent;}
 }
-
-
-
-
