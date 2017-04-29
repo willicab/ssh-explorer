@@ -153,9 +153,9 @@
             <div class="btn-group-vertical" role="group" aria-label="..." id="tooltip" style="position:absolute;display:none;">
                 <button id="btnCopy" type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/copy.png"> Copy to</button>
                 <button id="btnMove" type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/move.png">Rename/Move to</button>
+                <button id="btnRm" type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/delete.png"> Remove</button>
                 <button type="button" class="btn btn-default action action-folder action-file"><img src="img/compress.png"> Compress</button>
                 <button type="button" class="btn btn-default action action-zip"><img src="img/uncompress.png"> Extract</button>
-                <button type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/delete.png"> Delete</button>
                 <button type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/list-checks.png">Check Rights</button>
                 <button type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/download.png">Download</button>
             </div>
@@ -270,6 +270,11 @@
                     $('#txtDialogInput').prop('placeholder', 'Path to move');
                     $('#txtDialogInput').val(contextPath);
                     $('#dialogInput').modal('show');
+                });
+                $("#btnRm").click(function(){
+                    if (confirm("Can you remove "+contextPath)) {
+                        remove(actualPath, contextPath);
+                    }
                 });
                 $("#btnNewFile").click(function(){
                     $('#dialogInput').attr("data-action", "touch");

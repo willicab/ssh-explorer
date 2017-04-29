@@ -84,6 +84,14 @@ function move(path, origPath, destPath) {
     });
 }
 
+function remove(path, rmPath) {
+    console.log('remove '+rmPath);
+    $.post("include/remove.php", {host:host, port:port, username:username, password:password, path:path, rmPath:rmPath}, function( data ) {
+        $('#dialogInput').modal('hide');
+        refreshList(data);
+    });
+}
+
 function saveText(path, text) {
     console.log('save '+path);
     $.post("include/saveText.php", {host:host, port:port, username:username, password:password, path:path, text:text}, function( data ) {
