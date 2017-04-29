@@ -63,15 +63,23 @@ function cmd(path, command) {
     console.log('cmd '+command);
     $.post("include/cmd.php", {host:host, port:port, username:username, password:password, path:path, command:command}, function( data ) {
         json = JSON.parse(data);
-        console.log(json.data.res);
+        //console.log(json.data.res);
         $('#dialogCommandResult').html(json.data.res);
     });
 }
 
+function copy(path, origPath, destPath) {
+    console.log('copy '+origPath+" "+destPath);
+    $.post("include/copy.php", {host:host, port:port, username:username, password:password, path:path, origPath:origPath, destPath:destPath}, function( data ) {
+        $('#dialogInput').modal('hide');
+        console.log(data);
+        refreshList(data);
+    });
+}
 function saveText(path, text) {
     console.log('save '+path);
     $.post("include/saveText.php", {host:host, port:port, username:username, password:password, path:path, text:text}, function( data ) {
-        console.log(data);
+        //console.log(data);
       	alert('Salvado');
         //$('#textEditor').modal('hide');
     });
@@ -154,6 +162,8 @@ function refreshListFile() {
         cd(actualPath);
     })
     $(".list-file").on("contextmenu",function(e){
+        contextPath = actualPath+$(this).attr('data-name');
+        console.log(contextPath);
         $('#tooltip').css({
             top: (($(window).height() - 50) > (e.pageY + $('#tooltip').height()) ? e.pageY : (e.pageY + 2 - $('#tooltip').height())) + 'px',
             left: ($(window).width() > (e.pageX + $('#tooltip').width()) ? e.pageX : (e.pageX + 2 - $('#tooltip').width())) + 'px'
@@ -198,8 +208,3 @@ function setMode(fileName) {
     } else {
     }
 }
-
-
-
-
-

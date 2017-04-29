@@ -151,7 +151,7 @@
                 </div>
             </div>
             <div class="btn-group-vertical" role="group" aria-label="..." id="tooltip" style="position:absolute;display:none;">
-                <button type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/copy.png"> Copy to</button>
+                <button id="btnCopy" type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/copy.png"> Copy to</button>
                 <button type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/move.png">Move to</button>
                 <button type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/rename.png"> Rename</button>
                 <button type="button" class="btn btn-default action action-folder action-file"><img src="img/compress.png"> Compress</button>
@@ -174,6 +174,7 @@
             oldHtml = '';
             actualPath = '/';
             var txtCodeEditor = '';
+            var contextPath = '';
             $(document).ready(function () {
                 CodeMirror.modeURL = "js/mode/%N/%N.js";
                 var mixedMode = {
@@ -196,7 +197,7 @@
                     $("#loginBtn").prop("disabled", true);
                     $("#loginBtn").html('<img src="img/loader.gif">');
                     $.post("include/login.php", {host:host, port:port, username:username, password:password, path:actualPath}, function( data ) {
-                        console.log(data);
+                        //console.log(data);
                         $("#loginBtn").prop("disabled", false);
                         $("#loginBtn").text("Login");
                         if (refreshList(data)) {
@@ -242,27 +243,37 @@
                         case "touch":
                             touch(actualPath, $('#txtDialogInput').val());
                             break;
+                        case "copy":
+                            copy(actualPath, contextPath, $('#txtDialogInput').val());
+                            break;
                     }
                 });
                 $("#btnBashCmd").click(function(){
                     $('#dialogCommand').modal('show');
                 });
                 $('#btnEditorSave').click(function(){
-                    console.log("Guardando", txtCodeEditor.getValue());
+                    //console.log("Guardando", txtCodeEditor.getValue());
                     saveText($('#editor').attr('data-file'), txtCodeEditor.getValue());
+                });
+                $("#btnCopy").click(function(){
+                    $('#dialogInput').attr("data-action", "copy");
+                    $('#dialogInputLabel').text("Copy");
+                    $('#txtDialogInput').prop('placeholder', 'Path to copy');
+                    $('#txtDialogInput').val(contextPath);
+                    $('#dialogInput').modal('show');
                 });
                 $("#btnNewFile").click(function(){
                     $('#dialogInput').attr("data-action", "touch");
                     $('#dialogInputLabel').text("Create File");
                     $('#txtDialogInput').prop('placeholder', 'Insert File Name');
-                    $('#txtDialogInput').val('')
+                    $('#txtDialogInput').val('');
                     $('#dialogInput').modal('show');
                 });
                 $("#btnNewFolder").click(function(){
                     $('#dialogInput').attr("data-action", "mkdir");
                     $('#dialogInputLabel').text("Create Folder");
                     $('#txtDialogInput').prop('placeholder', 'Insert Folder Name');
-                    $('#txtDialogInput').val('')
+                    $('#txtDialogInput').val('');
                     $('#dialogInput').modal('show');
                 });
             });
