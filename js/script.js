@@ -44,7 +44,7 @@ function refreshList(data) {
             html += '</a>\n';
             html += '<div class="col-md-2">'+value.mimeType;
             html += '</div><div class="col-md-2">'+formatBytes(value.size);
-            html += '</div><div class="col-md-2">'+value.owner;
+            html += '</div><div class="col-md-2">'+value.group+':'+value.owner;
             html += '</div><div class="col-md-2">'+value.rights;
             html += '</div><div class="col-md-2">'+value.modificationDate+"</div></div>";
         });
@@ -112,10 +112,6 @@ function cat(path) {
             $('#textEditor').on('shown.bs.modal', function () {
                 setMode($('#editor').attr("data-file"));
                 txtCodeEditor.setValue($('#editor').attr("data-val"));
-                $('#btnEditorSave').click(function(){
-                    console.log("Guardando", txtCodeEditor.getValue());
-                    saveText($('#editor').attr('data-file'), txtCodeEditor.getValue());
-                });
             });
         }
     });
@@ -202,6 +198,8 @@ function setMode(fileName) {
     } else {
     }
 }
+
+
 
 
 

@@ -39,7 +39,7 @@
             </div>
             <div class="row" id="main">
                 <nav class="navbar navbar-default navbar-fixed-top">
-                    <form class="navbar-form navbar-left" role="toolbar" style="width:100%">
+                    <div class="navbar-form navbar-left" role="toolbar" style="width:100%">
                         <div class="input-group" style="width:100%">
                             <span class="input-group-btn" style="width:1px">
                                 <button id="btnNewFolder" type="button" class="btn btn-default">
@@ -59,7 +59,7 @@
                                 </button>
                             </span>
                         </div><!-- /input-group -->
-                    </form>
+                    </div>
                 </nav>
                 <div style="background-color:#fff;margin-top:50px;margin-bottom:50px;max-height:100%;overflow:hidden">
                     <div id="lstFiles"></div>
@@ -76,12 +76,12 @@
             <div class="modal fade" id="textEditor" tabindex="-1" role="dialog" aria-labelledby="textEditorTitle">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
-                        <div class="modal-header">
+                        <!--div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             <h4 class="modal-title" id="textEditorTitle">Text Editor</h4>
-                        </div>
+                        </div-->
                         <div class="modal-body">
-                            <textarea id="editor" style="width:100%;height:300px;"></textarea>
+                            <textarea id="editor" style="width:100%;"></textarea>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -246,6 +246,10 @@
                 });
                 $("#btnBashCmd").click(function(){
                     $('#dialogCommand').modal('show');
+                });
+                $('#btnEditorSave').click(function(){
+                    console.log("Guardando", txtCodeEditor.getValue());
+                    saveText($('#editor').attr('data-file'), txtCodeEditor.getValue());
                 });
                 $("#btnNewFile").click(function(){
                     $('#dialogInput').attr("data-action", "touch");

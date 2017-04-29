@@ -39,8 +39,27 @@ input {
     margin: 1rem 0 2rem 0;
     font-weight: bold;
 }
+#textEditor .modal-dialog {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#textEditor .modal-content {
+  height: auto;
+  min-height: 100%;
+  border-radius: 0;
+}
+.CodeMirror {
+  	height: 100% !important;
+}
 /*.action {display:none;}*/
 @media only screen and (max-width: 767px) {
     #login {margin-top:2rem;}
     .navbar-form{margin-top:0;margin-bottom:0;margin-left:0;border:0 solid transparent;}
 }
+
+
+
+

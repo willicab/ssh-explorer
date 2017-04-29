@@ -1,7 +1,7 @@
 <?php
 
     $config = array();
-    $config["root"] = "/var/www/html";
+    $config["root"] = "/";
 
     include_once 'Net/SSH2.php';
     $host = $_POST["host"];
@@ -16,4 +16,5 @@
     if (!$ssh->login($username, $password)) {
         exit('{"error":1, "data":[{"message":"login error", "host":"'.$host.'", "port":"'.$port.'", "username":"'.$username.'", "password":"'.$password.'"}]}');
     }
+
 
