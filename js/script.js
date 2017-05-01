@@ -76,7 +76,7 @@ function sysInfo() {
     $.post("include/info.php", {host:host, port:port, username:username, password:password}, function( data ) {
         console.log(data);
         json = JSON.parse(data);
-        $('#dialogSysInfoLabel').text('System Info ('+json.data.os+')');
+        $('#dialogSysInfoLabel').text('System Info \''+json.data.os+'\'');
         $('#itemInfoKernel').text('Kernel: '+json.data.kernel);
         $('#itemInfoArch').text('Architecture: '+json.data.arch);
         $('#itemInfoHostname').text('Hostname: '+json.data.hostname);
