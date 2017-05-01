@@ -70,6 +70,29 @@ function cmd(path, command) {
     });
 }
 
+function sysInfo() {
+    $('#modalWait').fadeIn();
+    console.log('sysInfo');
+    $.post("include/info.php", {host:host, port:port, username:username, password:password}, function( data ) {
+        console.log(data);
+        json = JSON.parse(data);
+        $('#dialogSysInfoLabel').text('System Info ('+json.data.os+')');
+        $('#itemInfoKernel').text('Kernel: '+json.data.kernel);
+        $('#itemInfoArch').text('Architecture: '+json.data.arch);
+        $('#itemInfoHostname').text('Hostname: '+json.data.hostname);
+        $('#itemInfoLang').text('Language: '+json.data.lang);
+        $('#itemInfoMemTotal').text('Memory Total: '+json.data.memtotal);
+        $('#itemInfoMemFree').text('Memory Free: '+json.data.memfree);
+        $('#itemInfoSwapTotal').text('Swap Total: '+json.data.swaptotal);
+        $('#itemInfoSwapFree').text('Swap Free: '+json.data.swapfree);
+        $('#itemInfoDiskTotal').text('Disk Space Total: '+json.data.disktotal);
+        $('#itemInfoDiskFree').text('Disk Free Free: '+json.data.diskfree);
+        //console.log(json.data);
+        //$('#dialogCommandResult').html(json.data.res);
+        $('#modalWait').fadeOut();
+        $('#dialogSysInfo').modal('show');
+    });
+}
 function copy(path, origPath, destPath) {
     $('#modalWait').fadeIn();
     console.log('copy '+origPath+" "+destPath);
@@ -151,8 +174,8 @@ function cat(path) {
             txtCodeEditor.setValue('');
             setMode($('#editor').attr("data-file"));
             txtCodeEditor.setValue($('#editor').attr("data-val"));
-            $('#modalWait').fadeOut();
             $('#textEditor').fadeIn();
+            $('#modalWait').fadeOut();
             //$('#textEditor').on('shown.bs.modal', function () {
             //});
         }

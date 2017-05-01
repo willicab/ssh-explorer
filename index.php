@@ -51,6 +51,9 @@
                                 <button id="btnBashCmd" type="button" class="btn btn-default">
                                     <img src="img/console.png" width="16">
                                 </button>
+                                <button id="btnSysInfo" type="button" class="btn btn-default">
+                                    i
+                                </button>
                             </span>
                             <input type="text" class="form-control" id="titlePath" value="/">
                             <span class="input-group-btn" style="width:1px">
@@ -146,6 +149,34 @@
                     </div>
                 </div>
             </div>
+            <!-- Modal SysInfo-->
+            <div class="modal fade" id="dialogSysInfo" tabindex="-1" role="dialog" aria-labelledby="dialogSysInfoLabel" data-action="">
+                <div class="modal-dialog modal-md" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="dialogSysInfoLabel">System Info</h4>
+                        </div>
+                        <div class="modal-body">
+                            <ul class="list-group">
+                                <li class="list-group-item" id="itemInfoKernel"></li>
+                                <li class="list-group-item" id="itemInfoArch"></li>
+                                <li class="list-group-item" id="itemInfoHostname"></li>
+                                <li class="list-group-item" id="itemInfoMemTotal"></li>
+                                <li class="list-group-item" id="itemInfoMemFree"></li>
+                                <li class="list-group-item" id="itemInfoSwapTotal"></li>
+                                <li class="list-group-item" id="itemInfoSwapFree"></li>
+                                <li class="list-group-item" id="itemInfoDiskTotal"></li>
+                                <li class="list-group-item" id="itemInfoDiskFree"></li>
+                            </ul>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Contextual Menu -->
             <div class="btn-group-vertical" role="group" aria-label="..." id="tooltip" style="position:absolute;display:none;">
                 <button id="btnCopy" type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/copy.png"> Copy to</button>
                 <button id="btnMove" type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/move.png">Rename/Move to</button>
@@ -226,6 +257,9 @@
                     if(e.which == 13) {
                       	$("#btnCommand").trigger( "click" );
                     }
+                });
+                $('#btnSysInfo').click(function(){
+                    sysInfo();
                 });
                 $("#txtDialogInput").keypress(function(e) {
                     if(e.which == 13) {
