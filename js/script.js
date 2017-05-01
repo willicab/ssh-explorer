@@ -1,13 +1,14 @@
 var txtCodeEditor = null;
 function cd(path) {
+    $('#modalWait').fadeIn();
     console.log('cd '+path);
     oldHtml = $('#lstFiles').html();
-    $('#lstFiles').html('<img src="img/loader.gif">');
     path += '/';
     actualPath += '/';
     actualPath = actualPath.replace('//', '/')
     $('#titlePath').val(path.replace('//', '/'));
     $.post("include/cd.php", {host:host, port:port, username:username, password:password, path:path}, function( data ) {
+        $('#modalWait').fadeOut();
         refreshList(data);
     });
 }
@@ -59,66 +60,80 @@ function refreshList(data) {
 }
 
 function cmd(path, command) {
-    $('#dialogCommandResult').html('<img src="img/loader.gif">');
+    $('#modalWait').fadeIn();
     console.log('cmd '+command);
     $.post("include/cmd.php", {host:host, port:port, username:username, password:password, path:path, command:command}, function( data ) {
         json = JSON.parse(data);
         //console.log(json.data.res);
         $('#dialogCommandResult').html(json.data.res);
+        $('#modalWait').fadeOut();
     });
 }
 
 function copy(path, origPath, destPath) {
+    $('#modalWait').fadeIn();
     console.log('copy '+origPath+" "+destPath);
     $.post("include/copy.php", {host:host, port:port, username:username, password:password, path:path, origPath:origPath, destPath:destPath}, function( data ) {
         $('#dialogInput').modal('hide');
+        $('#modalWait').fadeOut();
         refreshList(data);
     });
 }
 
 function move(path, origPath, destPath) {
+    $('#modalWait').fadeIn();
     console.log('move '+origPath+" "+destPath);
     $.post("include/move.php", {host:host, port:port, username:username, password:password, path:path, origPath:origPath, destPath:destPath}, function( data ) {
         $('#dialogInput').modal('hide');
+        $('#modalWait').fadeOut();
         refreshList(data);
     });
 }
 
 function remove(path, rmPath) {
+    $('#modalWait').fadeIn();
     console.log('remove '+rmPath);
     $.post("include/remove.php", {host:host, port:port, username:username, password:password, path:path, rmPath:rmPath}, function( data ) {
         $('#dialogInput').modal('hide');
+        $('#modalWait').fadeOut();
         refreshList(data);
     });
 }
 
 function saveText(path, text) {
     console.log('save '+path);
+    $('#modalWait').fadeIn();
     $.post("include/saveText.php", {host:host, port:port, username:username, password:password, path:path, text:text}, function( data ) {
         //console.log(data);
+        $('#modalWait').fadeOut();
       	alert('Salvado');
         //$('#textEditor').modal('hide');
     });
 }
 
 function touch(path, file) {
+    $('#modalWait').fadeIn();
     console.log('touch '+path+file);
     $.post("include/touch.php", {host:host, port:port, username:username, password:password, path:path, file:file}, function( data ) {
         $('#dialogInput').modal('hide');
+        $('#modalWait').fadeOut();
         refreshList(data);
     });
 }
 
 function mkdir(path, file) {
+    $('#modalWait').fadeIn();
     console.log('mkdir '+path+file);
     $.post("include/mkdir.php", {host:host, port:port, username:username, password:password, path:path, file:file}, function( data ) {
         $('#dialogInput').modal('hide');
+        $('#modalWait').fadeOut();
         refreshList(data);
     });
 }
 
 function cat(path) {
     console.log('cat '+path);
+    $('#modalWait').fadeIn();
     $.post("include/cat.php", {host:host, port:port, username:username, password:password, path:path}, function( data ) {
         json = JSON.parse(data);
         var mixedMode = {
@@ -135,6 +150,7 @@ function cat(path) {
             txtCodeEditor.setValue('');
             setMode($('#editor').attr("data-file"));
             txtCodeEditor.setValue($('#editor').attr("data-val"));
+            $('#modalWait').fadeOut();
             $('#textEditor').fadeIn();
             //$('#textEditor').on('shown.bs.modal', function () {
             //});
@@ -143,10 +159,12 @@ function cat(path) {
 }
 
 function getImage(path, mimetype) {
+    $('#modalWait').fadeIn();
     console.log('base64 '+path);
     $('#viewer').prop('src', 'img/loader.gif');
     $('#imageViewer').modal('show');
     $.post("include/base64.php", {host:host, port:port, username:username, password:password, path:path, mimetype:mimetype}, function( data ) {
+        $('#modalWait').fadeOut();
         json = JSON.parse(data);
         if (json.error == 0) {
             $('#viewer').prop('src', json.data);

@@ -72,6 +72,8 @@
                     <p class="navbar-text" id="fileInfo"></p>
                 </nav>
             </div>
+            <!-- Modal Wait -->
+            <div id="modalWait"></div>
             <!-- Modal Editor-->
             <div id="textEditor">
                 <div id="headerEditor" style="padding:3px;overflow-x:hidden;">
