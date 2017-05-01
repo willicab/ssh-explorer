@@ -41,8 +41,8 @@ input {
 }
 #modalWait{
     display:none;
-    background:rgba(0,0,0,0.5) url(../img/loader.gif) center no-repeat;
-    background-size: 10%;
+    background:rgba(187,204,211,0.5) url(../img/loader.gif) center no-repeat;
+    background-size: 30%;
     position:fixed;
     top:0;
     left:0;
