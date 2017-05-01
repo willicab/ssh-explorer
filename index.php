@@ -52,7 +52,7 @@
                                     <img src="img/console.png" width="16">
                                 </button>
                                 <button id="btnSysInfo" type="button" class="btn btn-default">
-                                    i
+                                    <img src="img/information.png" width="16">
                                 </button>
                             </span>
                             <input type="text" class="form-control" id="titlePath" value="/">
