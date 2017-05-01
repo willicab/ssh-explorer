@@ -131,6 +131,7 @@ function cat(path) {
         if (json.error == 0) {
             $('#editor').attr("data-val", json.data)
             $('#editor').attr('data-file', path);
+            $('#pathEditor').text(path);
             txtCodeEditor.setValue('');
             setMode($('#editor').attr("data-file"));
             txtCodeEditor.setValue($('#editor').attr("data-val"));
