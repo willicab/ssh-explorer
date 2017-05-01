@@ -73,15 +73,15 @@
                 </nav>
             </div>
             <!-- Modal Editor-->
-            <div id="textEditor" style="display:none;background-color:#eee;position:fixed;top:0;left:0;width:100%;height:100%;z-index:1050">
+            <div id="textEditor">
                 <div id="headerEditor" style="padding:3px;overflow-x:hidden;">
                     <button type="button" class="btn btn-default" id="btnEditorClose">Close</button>
                     <button type="button" class="btn btn-primary" id="btnEditorSave">Save changes</button>
                     &nbsp;&nbsp;&nbsp;&nbsp;
-                    <span id="pathEditor" style="line-height:34px">/var/www/html/index.php</span>
+                    <span id="pathEditor">/var/www/html/index.php</span>
                 </div>
-                <div id="bodyEditor" style="height:calc(100% - 40px);overflow-y:auto;">
-                    <textarea id="editor" style="width:100%;"></textarea>
+                <div id="bodyEditor">
+                    <textarea id="editor"></textarea>
                 </div>
             </div>
             <!-- Modal Imager Viewer-->

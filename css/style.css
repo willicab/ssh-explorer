@@ -39,18 +39,19 @@ input {
     margin: 1rem 0 2rem 0;
     font-weight: bold;
 }
-#textEditor .modal-dialog {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
+#textEditor {
+    display:none;
+    background-color:#eee;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:1050;
 }
-
-#textEditor .modal-content {
-  height: auto;
-  min-height: 100%;
-  border-radius: 0;
-}
+#pathEditor{line-height:34px;}
+#bodyEditor{height:calc(100% - 40px);}
+#editor{width:100%;}
 .CodeMirror {
   	height: 100% !important;
 }
