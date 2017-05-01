@@ -135,6 +135,7 @@ function cat(path) {
     console.log('cat '+path);
     $('#modalWait').fadeIn();
     $.post("include/cat.php", {host:host, port:port, username:username, password:password, path:path}, function( data ) {
+        console.log(data);
         json = JSON.parse(data);
         var mixedMode = {
            name: "htmlmixed",
