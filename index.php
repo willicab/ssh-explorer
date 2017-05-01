@@ -238,6 +238,10 @@
                         }
                     });
                 });
+                $("#loginHost").keypress(function(e) {if(e.which == 13) {$("#loginPort").focus();}});
+                $("#loginPort").keypress(function(e) {if(e.which == 13) {$("#loginUsername").focus();}});
+                $("#loginUsername").keypress(function(e) {if(e.which == 13) {$("#loginPassword").focus();}});
+                $("#loginPassword").keypress(function(e) {if(e.which == 13) {$("#loginBtn").trigger( "click" );}});
                 $("#btnEditorClose").click(function(){
                     $('#textEditor').fadeOut();
                 });
