@@ -73,21 +73,15 @@
                 </nav>
             </div>
             <!-- Modal Editor-->
-            <div class="modal fade" id="textEditor" tabindex="-1" role="dialog" aria-labelledby="textEditorTitle">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <!--div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="textEditorTitle">Text Editor</h4>
-                        </div-->
-                        <div class="modal-body">
-                            <textarea id="editor" style="width:100%;"></textarea>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" id="btnEditorSave">Save changes</button>
-                        </div>
-                    </div>
+            <div id="textEditor" style="display:none;background-color:#eee;position:fixed;top:0;left:0;width:100%;height:100%;z-index:1050">
+                <div id="headerEditor" style="padding:3px;overflow-x:hidden;">
+                    <button type="button" class="btn btn-default" id="btnEditorClose">Close</button>
+                    <button type="button" class="btn btn-primary" id="btnEditorSave">Save changes</button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <span id="pathEditor" style="line-height:34px">/var/www/html/index.php</span>
+                </div>
+                <div id="bodyEditor" style="height:calc(100% - 40px);overflow-y:auto;">
+                    <textarea id="editor" style="width:100%;"></textarea>
                 </div>
             </div>
             <!-- Modal Imager Viewer-->
@@ -211,7 +205,9 @@
                         }
                     });
                 });
-
+                $("#btnEditorClose").click(function(){
+                    $('#textEditor').fadeOut();
+                });
                 $("#btnCD").click(function(){
                     actualPath = $("#titlePath").val();
                     cd(actualPath);

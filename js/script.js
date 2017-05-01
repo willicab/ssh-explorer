@@ -132,11 +132,11 @@ function cat(path) {
             $('#editor').attr("data-val", json.data)
             $('#editor').attr('data-file', path);
             txtCodeEditor.setValue('');
-            $('#textEditor').modal('show');
-            $('#textEditor').on('shown.bs.modal', function () {
-                setMode($('#editor').attr("data-file"));
-                txtCodeEditor.setValue($('#editor').attr("data-val"));
-            });
+            setMode($('#editor').attr("data-file"));
+            txtCodeEditor.setValue($('#editor').attr("data-val"));
+            $('#textEditor').fadeIn();
+            //$('#textEditor').on('shown.bs.modal', function () {
+            //});
         }
     });
 }
