@@ -8,5 +8,5 @@ $path = str_replace("../", "/", str_replace("//", "/", $config["root"]."/".$_POS
 $cmd = $_POST["command"];
 
 $command = "cd '$path' && $cmd";
-$result = $ssh->exec($command);
+$result = htmlentities($ssh->exec($command));
 echo json_encode(array("error"=>0, "data"=>array("cmd"=>$cmd,"res"=>$result)));
