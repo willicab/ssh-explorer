@@ -130,7 +130,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="dialogCommandLabel">Comando Personalizado</h4>
+                            <h4 class="modal-title" id="dialogCommandLabel">Custom Command</h4>
                         </div>
                         <div class="modal-body" style="text-align:center">
                             <div class="input-group" style="width:100%">
