@@ -357,8 +357,9 @@
                     extract(actualPath, file[file.length - 1]);
                 });
                 $("#btnCompress").click(function(){
-                    $('#txtCompress').trigger('change');
                     $('#dialogCompress').modal('show');
+                    file = contextPath.split('/');
+                    $('#txtCompress').val(file[file.length - 1]+'.'+$('#selCompress').val());
                 });
                 $('#selCompress').change(function(){
                     file = contextPath.split('/');
