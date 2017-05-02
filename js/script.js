@@ -150,7 +150,8 @@ function saveText(path, text) {
     console.log('save '+path);
     $('#modalWait').fadeIn();
     $.post("include/saveText.php", {host:host, port:port, username:username, password:password, path:path, text:text}, function( data ) {
-      	alert('Salvado');
+      	refreshList(data);
+      	alert('Saved');
     }).always(function() {$('#modalWait').fadeOut();});
 }
 
@@ -282,5 +283,7 @@ function setMode(fileName) {
     } else {
     }
 }
+
+
 
 
