@@ -8,9 +8,8 @@ function cd(path) {
     actualPath = actualPath.replace('//', '/')
     $('#titlePath').val(path.replace('//', '/'));
     $.post("include/cd.php", {host:host, port:port, username:username, password:password, path:path}, function( data ) {
-        $('#modalWait').fadeOut();
         refreshList(data);
-    });
+    }).always(function() {$('#modalWait').fadeOut();});
 }
 function refreshList(data) {
     json = JSON.parse(data);
@@ -66,8 +65,7 @@ function cmd(path, command) {
         json = JSON.parse(data);
         //console.log(json.data.res);
         $('#dialogCommandResult').html(json.data.res);
-        $('#modalWait').fadeOut();
-    });
+    }).always(function() {$('#modalWait').fadeOut();});
 }
 
 function sysInfo() {
@@ -77,6 +75,7 @@ function sysInfo() {
         console.log(data);
         json = JSON.parse(data);
         $('#dialogSysInfoLabel').text('System Info \''+json.data.os+'\'');
+        $('#itemInfoUptime').text('Uptime: '+json.data.uptime);
         $('#itemInfoKernel').text('Kernel: '+json.data.kernel);
         $('#itemInfoArch').text('Architecture: '+json.data.arch);
         $('#itemInfoHostname').text('Hostname: '+json.data.hostname);
@@ -89,9 +88,8 @@ function sysInfo() {
         $('#itemInfoDiskFree').text('Disk Free Free: '+json.data.diskfree);
         //console.log(json.data);
         //$('#dialogCommandResult').html(json.data.res);
-        $('#modalWait').fadeOut();
         $('#dialogSysInfo').modal('show');
-    });
+    }).always(function() {$('#modalWait').fadeOut();});
 }
 function copy(path, origPath, destPath) {
     $('#modalWait').fadeIn();
@@ -99,8 +97,7 @@ function copy(path, origPath, destPath) {
     $.post("include/copy.php", {host:host, port:port, username:username, password:password, path:path, origPath:origPath, destPath:destPath}, function( data ) {
         $('#dialogInput').modal('hide');
         $('#modalWait').fadeOut();
-        refreshList(data);
-    });
+    }).always(function() {$('#modalWait').fadeOut();});
 }
 
 function move(path, origPath, destPath) {
@@ -108,9 +105,8 @@ function move(path, origPath, destPath) {
     console.log('move '+origPath+" "+destPath);
     $.post("include/move.php", {host:host, port:port, username:username, password:password, path:path, origPath:origPath, destPath:destPath}, function( data ) {
         $('#dialogInput').modal('hide');
-        $('#modalWait').fadeOut();
         refreshList(data);
-    });
+    }).always(function() {$('#modalWait').fadeOut();});
 }
 
 function remove(path, rmPath) {
@@ -118,20 +114,16 @@ function remove(path, rmPath) {
     console.log('remove '+rmPath);
     $.post("include/remove.php", {host:host, port:port, username:username, password:password, path:path, rmPath:rmPath}, function( data ) {
         $('#dialogInput').modal('hide');
-        $('#modalWait').fadeOut();
         refreshList(data);
-    });
+    }).always(function() {$('#modalWait').fadeOut();});
 }
 
 function saveText(path, text) {
     console.log('save '+path);
     $('#modalWait').fadeIn();
     $.post("include/saveText.php", {host:host, port:port, username:username, password:password, path:path, text:text}, function( data ) {
-        //console.log(data);
-        $('#modalWait').fadeOut();
       	alert('Salvado');
-        //$('#textEditor').modal('hide');
-    });
+    }).always(function() {$('#modalWait').fadeOut();});
 }
 
 function touch(path, file) {
@@ -139,9 +131,8 @@ function touch(path, file) {
     console.log('touch '+path+file);
     $.post("include/touch.php", {host:host, port:port, username:username, password:password, path:path, file:file}, function( data ) {
         $('#dialogInput').modal('hide');
-        $('#modalWait').fadeOut();
         refreshList(data);
-    });
+    }).always(function() {$('#modalWait').fadeOut();});
 }
 
 function mkdir(path, file) {
@@ -149,9 +140,8 @@ function mkdir(path, file) {
     console.log('mkdir '+path+file);
     $.post("include/mkdir.php", {host:host, port:port, username:username, password:password, path:path, file:file}, function( data ) {
         $('#dialogInput').modal('hide');
-        $('#modalWait').fadeOut();
         refreshList(data);
-    });
+    }).always(function() {$('#modalWait').fadeOut();});
 }
 
 function cat(path) {
@@ -175,11 +165,8 @@ function cat(path) {
             setMode($('#editor').attr("data-file"));
             txtCodeEditor.setValue($('#editor').attr("data-val"));
             $('#textEditor').fadeIn();
-            $('#modalWait').fadeOut();
-            //$('#textEditor').on('shown.bs.modal', function () {
-            //});
         }
-    });
+    }).always(function() {$('#modalWait').fadeOut();});;
 }
 
 function getImage(path, mimetype) {
@@ -188,12 +175,11 @@ function getImage(path, mimetype) {
     $('#viewer').prop('src', 'img/loader.gif');
     $('#imageViewer').modal('show');
     $.post("include/base64.php", {host:host, port:port, username:username, password:password, path:path, mimetype:mimetype}, function( data ) {
-        $('#modalWait').fadeOut();
         json = JSON.parse(data);
         if (json.error == 0) {
             $('#viewer').prop('src', json.data);
         }
-    });
+    }).always(function() {$('#modalWait').fadeOut();});
 }
 
 function refreshListFile() {

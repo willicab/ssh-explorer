@@ -8,6 +8,7 @@ include_once 'config.php';
 $lsb = $ssh->exec("lsb_release -a");
 preg_match_all('/Description:[ ]*([^\n]*)\n/', $lsb, $matches);
 $os = $matches[1][0];
+$uptime = $ssh->exec("uptime -p");
 $kernel = $ssh->exec("uname -r");
 $arch = $ssh->exec("uname -m");
 $hostname = $ssh->exec("uname -n");
@@ -32,6 +33,7 @@ echo json_encode(array(
     "error"=>0,
     "data"=>array(
         "os"=>$os,
+        "uptime"=>$uptime,
         "kernel"=>$kernel,
         "arch"=>$arch,
         "hostname"=>$hostname,
@@ -43,7 +45,6 @@ echo json_encode(array(
         "disktotal"=>$disktotal,
         "diskused"=>$diskused,
         "diskfree"=>$diskfree,
-        "diskperc"=>$diskperc,
-        "array"=>$matches
+        "diskperc"=>$diskperc
     )
 ));

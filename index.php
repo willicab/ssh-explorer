@@ -168,6 +168,7 @@
                                 <li class="list-group-item" id="itemInfoSwapFree"></li>
                                 <li class="list-group-item" id="itemInfoDiskTotal"></li>
                                 <li class="list-group-item" id="itemInfoDiskFree"></li>
+                                <li class="list-group-item" id="itemInfoUptime"></li>
                             </ul>
                         </div>
                         <div class="modal-footer">
