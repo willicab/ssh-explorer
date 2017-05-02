@@ -68,4 +68,4 @@ foreach($files as $k=>$v) {
 }
 
 #print_r($array);
-echo json_encode(array("error"=>0, "data"=>array_merge($arrayFolders, $arrayFiles)));
+echo json_encode(array("error"=>0, "data"=>array_merge($arrayFolders, $arrayFiles), "cmd"=>(isset($precmd)?$precmd:$command)));

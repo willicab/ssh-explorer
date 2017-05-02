@@ -177,12 +177,40 @@
                     </div>
                 </div>
             </div>
+            <!-- Modal Compress-->
+            <div class="modal fade" id="dialogCompress" tabindex="-1" role="dialog" aria-labelledby="dialogCompressLabel" data-action="">
+                <div class="modal-dialog modal-md" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="dialogCompress">Compress</h4>
+                        </div>
+                        <div class="modal-body row">
+                            <div class="col-md-10">
+                                <input id="txtCompress" type="text" class="form-control">
+                            </div>
+                            <div class="col-md-2">
+                                <select id="selCompress">
+                                    <option value="tar.gz">tar.gz</option>
+                                    <option value="tar">tar</option>
+                                    <option value="gz">gz</option>
+                                    <option value="zip">zip</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-success" data-dismiss="modal" id="btnCompressAccept">Compress</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- Contextual Menu -->
             <div class="btn-group-vertical" role="group" aria-label="..." id="tooltip" style="position:absolute;display:none;">
                 <button id="btnCopy" type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/copy.png"> Copy to</button>
                 <button id="btnMove" type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/move.png">Rename/Move to</button>
                 <button id="btnRm" type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/delete.png"> Remove</button>
-                <button type="button" class="btn btn-default action action-folder action-file"><img src="img/compress.png"> Compress</button>
+                <button id="btnCompress" type="button" class="btn btn-default action action-folder action-file"><img src="img/compress.png"> Compress</button>
                 <button type="button" class="btn btn-default action action-zip"><img src="img/uncompress.png"> Extract</button>
                 <button type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/list-checks.png">Check Rights</button>
                 <button type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/download.png">Download</button>
@@ -224,7 +252,7 @@
                     $("#loginBtn").prop("disabled", true);
                     $("#loginBtn").html('<img src="img/loader.gif">');
                     $.post("include/login.php", {host:host, port:port, username:username, password:password, path:actualPath}, function( data ) {
-                        //console.log(data);
+                        console.log(data);
                         $("#loginBtn").prop("disabled", false);
                         $("#loginBtn").text("Login");
                         if (refreshList(data)) {
@@ -312,6 +340,16 @@
                     if (confirm("Can you remove "+contextPath)) {
                         remove(actualPath, contextPath);
                     }
+                });
+                $("#btnCompress").click(function(){
+                    $('#txtCompress').trigger('change');
+                    $('#dialogCompress').modal('show');
+                });
+                $('#selCompress').change(function(){
+                    $('#txtCompress').val(contextPath+'.'+$('#selCompress').val());
+                });
+                $('#btnCompressAccept').click(function(){
+                    compress(actualPath, contextPath, $('#txtCompress').val(), $('#selCompress').val());
                 });
                 $("#btnNewFile").click(function(){
                     $('#dialogInput').attr("data-action", "touch");

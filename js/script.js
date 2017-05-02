@@ -59,6 +59,16 @@ function refreshList(data) {
     }
 }
 
+function compress(path, orig, name, type) {
+    $('#modalWait').fadeIn();
+    console.log('compress '+path+' '+orig+' '+name+' '+type);
+    $.post("include/compress.php", {host:host, port:port, username:username, password:password, path:path, orig:orig, name:name, type:type}, function( data ) {
+        $('#dialogCompress').modal('hide');
+        console.log(data);
+        refreshList(data);
+    }).always(function() {$('#modalWait').fadeOut();});
+}
+
 function cmd(path, command) {
     $('#modalWait').fadeIn();
     console.log('cmd '+command);
@@ -97,7 +107,7 @@ function copy(path, origPath, destPath) {
     console.log('copy '+origPath+" "+destPath);
     $.post("include/copy.php", {host:host, port:port, username:username, password:password, path:path, origPath:origPath, destPath:destPath}, function( data ) {
         $('#dialogInput').modal('hide');
-        $('#modalWait').fadeOut();
+        refreshList(data);
     }).always(function() {$('#modalWait').fadeOut();});
 }
 
