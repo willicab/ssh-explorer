@@ -315,8 +315,19 @@
                             break;
                     }
                 });
+                $('#dialogCommand').on('shown.bs.modal', function() {
+                    $('#txtCommand').focus();
+                });
+                $('#dialogCompress').on('shown.bs.modal', function() {
+                    $('#txtCompress').focus();
+                });
+                $('#dialogInput').on('shown.bs.modal', function() {
+                    $('#txtDialogInput').focus();
+                });
                 $("#btnBashCmd").click(function(){
-                    $('#dialogCommand').modal('show');
+                    $('#dialogCommand').modal('show', function(){
+                    });
+
                 });
                 $('#btnEditorSave').click(function(){
                     //console.log("Guardando", txtCodeEditor.getValue());
