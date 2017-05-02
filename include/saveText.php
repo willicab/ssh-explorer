@@ -9,6 +9,9 @@ $text = str_replace('"', '\"', str_replace('$', '\$', str_replace("\\", "\\\\", 
 
 $command = "echo \"$text\" > '$path'";
 $res = $ssh->exec($command);
-echo $command;
-echo $res;
+//echo $command;
+//echo $res;
 //echo json_encode(array("error"=>0, "data"=>array($res), "cmd"=>$command));
+
+include_once 'cd.php';
+
