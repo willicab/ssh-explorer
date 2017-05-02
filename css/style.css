@@ -16,7 +16,7 @@ input {
     background: transparent url(../img/file.png) center left no-repeat;
     background-size: 32px;
 }
-.zip, gzip {background: transparent url(../img/zip.png) center left no-repeat;background-size: 32px;}
+.zip, .gzip, .x-tar {background: transparent url(../img/zip.png) center left no-repeat;background-size: 32px;}
 .xml {background: transparent url(../img/xml.png) center left no-repeat;background-size: 32px;}
 .pdf {background: transparent url(../img/pdf.png) center left no-repeat;background-size: 32px;}
 .image {background: transparent url(../img/image.png) center left no-repeat;background-size: 32px;}
