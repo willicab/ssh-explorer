@@ -21,6 +21,9 @@ switch ($_POST["type"]) {
     case 'zip':
         $command = "zip $name $orig";
         break;
+    default:
+        $command = "ls $name";
+        break;
 }
 $precmd = $command;
 $files = $ssh->exec($command);
