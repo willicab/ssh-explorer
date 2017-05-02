@@ -5,24 +5,24 @@ ini_set('display_errors', 1);
 include_once 'config.php';
 
 $path = str_replace("//", "/", str_replace("../", "/", $config["root"]."/".$_POST["path"]."/"));
-$orig = str_replace("//", "/", str_replace("../", "/", $config["root"]."/".$_POST["orig"]));
-$name = str_replace("//", "/", str_replace("../", "/", $config["root"]."/".$_POST["name"]));
+$orig = str_replace("//", "/", $_POST["orig"]);
+$name = str_replace("//", "/", $_POST["name"]);
 
 switch ($_POST["type"]) {
     case 'tar.gz':
-        $command = "tar -czf $name $orig";
+        $command = "cd $path && tar -czf $name $orig";
         break;
     case 'tar':
-        $command = "tar -cf $name $orig";
+        $command = "cd $path && tar -cf $name $orig";
         break;
     case 'gz':
-        $command = "gzip -9 $orig";
+        $command = "cd $path && gzip -9 $orig";
         break;
     case 'zip':
-        $command = "zip $name $orig";
+        $command = "cd $path && zip $name $orig";
         break;
     default:
-        $command = "ls $name";
+        $command = "cd $path && ls $name";
         break;
 }
 $precmd = $command;

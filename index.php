@@ -211,7 +211,7 @@
                 <button id="btnMove" type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/move.png">Rename/Move to</button>
                 <button id="btnRm" type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/delete.png"> Remove</button>
                 <button id="btnCompress" type="button" class="btn btn-default action action-folder action-file"><img src="img/compress.png"> Compress</button>
-                <button type="button" class="btn btn-default action action-zip"><img src="img/uncompress.png"> Extract</button>
+                <button id="btnExtract" type="button" class="btn btn-default action action-zip"><img src="img/extract.png"> Extract</button>
                 <button type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/list-checks.png">Check Rights</button>
                 <button type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/download.png">Download</button>
             </div>
@@ -341,15 +341,21 @@
                         remove(actualPath, contextPath);
                     }
                 });
+                $("#btnExtract").click(function(){
+                    file = contextPath.split('/');
+                    extract(actualPath, file[file.length - 1]);
+                });
                 $("#btnCompress").click(function(){
                     $('#txtCompress').trigger('change');
                     $('#dialogCompress').modal('show');
                 });
                 $('#selCompress').change(function(){
-                    $('#txtCompress').val(contextPath+'.'+$('#selCompress').val());
+                    file = contextPath.split('/');
+                    $('#txtCompress').val(file[file.length - 1]+'.'+$('#selCompress').val());
                 });
                 $('#btnCompressAccept').click(function(){
-                    compress(actualPath, contextPath, $('#txtCompress').val(), $('#selCompress').val());
+                    file = contextPath.split('/');
+                    compress(actualPath, file[file.length - 1], $('#txtCompress').val(), $('#selCompress').val());
                 });
                 $("#btnNewFile").click(function(){
                     $('#dialogInput').attr("data-action", "touch");
