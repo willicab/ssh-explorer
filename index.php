@@ -205,6 +205,47 @@
                     </div>
                 </div>
             </div>
+            <!-- Modal Chmod-->
+            <div class="modal fade" id="dialogChmod" tabindex="-1" role="dialog" aria-labelledby="dialogChmodLabel" data-action="">
+                <div class="modal-dialog modal-md" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="dialogChmodLabel">Chmod</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-3"></div>
+                                <div class="col-md-3">Read</div>
+                                <div class="col-md-3">Write</div>
+                                <div class="col-md-3">Exec</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">Owner</div>
+                                <div class="col-md-3"><input data-value="4" id="ownerRead" type="checkbox"></div>
+                                <div class="col-md-3"><input data-value="2" id="ownerWrite" type="checkbox"></div>
+                                <div class="col-md-3"><input data-value="1" id="ownerExec" type="checkbox"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">Group</div>
+                                <div class="col-md-3"><input data-value="4" id="groupRead" type="checkbox"></div>
+                                <div class="col-md-3"><input data-value="2" id="groupWrite" type="checkbox"></div>
+                                <div class="col-md-3"><input data-value="1" id="groupExec" type="checkbox"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">Others</div>
+                                <div class="col-md-3"><input data-value="4" id="othersRead" type="checkbox"></div>
+                                <div class="col-md-3"><input data-value="2" id="othersWrite" type="checkbox"></div>
+                                <div class="col-md-3"><input data-value="1" id="othersExec" type="checkbox"></div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-success" data-dismiss="modal" id="btnChmodAccept">Accept</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- Contextual Menu -->
             <div class="btn-group-vertical" role="group" aria-label="..." id="tooltip" style="position:absolute;display:none;">
                 <button id="btnCopy" type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/copy.png"> Copy to</button>
@@ -212,7 +253,7 @@
                 <button id="btnRm" type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/delete.png"> Remove</button>
                 <button id="btnCompress" type="button" class="btn btn-default action action-folder action-file"><img src="img/compress.png"> Compress</button>
                 <button id="btnExtract" type="button" class="btn btn-default action action-zip"><img src="img/extract.png"> Extract</button>
-                <button type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/list-checks.png">Check Rights</button>
+                <button id="btnChmod" type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/list-checks.png">Chmod</button>
                 <button type="button" class="btn btn-default action action-zip action-folder action-file"><img src="img/download.png">Download</button>
             </div>
         </div>
@@ -230,6 +271,7 @@
             actualPath = '/';
             var txtCodeEditor = '';
             var contextPath = '';
+            var contextChmod = '';
             $(document).ready(function () {
                 CodeMirror.modeURL = "js/mode/%N/%N.js";
                 var mixedMode = {
@@ -252,7 +294,7 @@
                     $("#loginBtn").prop("disabled", true);
                     $("#loginBtn").html('<img src="img/loader.gif">');
                     $.post("include/login.php", {host:host, port:port, username:username, password:password, path:actualPath}, function( data ) {
-                        console.log(data);
+                        //console.log(data);
                         $("#loginBtn").prop("disabled", false);
                         $("#loginBtn").text("Login");
                         if (refreshList(data)) {
@@ -325,12 +367,9 @@
                     $('#txtDialogInput').focus();
                 });
                 $("#btnBashCmd").click(function(){
-                    $('#dialogCommand').modal('show', function(){
-                    });
-
+                    $('#dialogCommand').modal('show');
                 });
                 $('#btnEditorSave').click(function(){
-                    //console.log("Guardando", txtCodeEditor.getValue());
                     saveText($('#editor').attr('data-file'), txtCodeEditor.getValue());
                 });
                 $("#btnCopy").click(function(){
@@ -355,6 +394,31 @@
                 $("#btnExtract").click(function(){
                     file = contextPath.split('/');
                     extract(actualPath, file[file.length - 1]);
+                });
+                $("#btnChmod").click(function(){
+                    file = contextPath.split('/');
+                    $('#dialogChmodLabel').text('Chmod '+file[file.length - 1]);
+                    $('#dialogChmod').modal('show');
+                });
+                $('#dialogChmod').on('shown.bs.modal', function() {
+                    $('#ownerRead').prop('checked', (contextChmod.substr(1, 1)!='-'));
+                    $('#ownerWrite').prop('checked', (contextChmod.substr(2, 1)!='-'));
+                    $('#ownerExec').prop('checked', (contextChmod.substr(3, 1)!='-'));
+                    $('#groupRead').prop('checked', (contextChmod.substr(4, 1)!='-'));
+                    $('#groupWrite').prop('checked', (contextChmod.substr(5, 1)!='-'));
+                    $('#groupExec').prop('checked', (contextChmod.substr(6, 1)!='-'));
+                    $('#othersRead').prop('checked', (contextChmod.substr(7, 1)!='-'));
+                    $('#othersWrite').prop('checked', (contextChmod.substr(8, 1)!='-'));
+                    $('#othersExec').prop('checked', (contextChmod.substr(9, 1)!='-'));
+                    console.log(contextChmod.substr(1, 1)!='-');
+                    console.log(contextChmod.substr(2, 1)!='-');
+                    console.log(contextChmod.substr(3, 1)!='-');
+                    console.log(contextChmod.substr(4, 1)!='-');
+                    console.log(contextChmod.substr(5, 1)!='-');
+                    console.log(contextChmod.substr(6, 1)!='-');
+                    console.log(contextChmod.substr(7, 1)!='-');
+                    console.log(contextChmod.substr(8, 1)!='-');
+                    console.log(contextChmod.substr(9, 1)!='-');
                 });
                 $("#btnCompress").click(function(){
                     $('#dialogCompress').modal('show');

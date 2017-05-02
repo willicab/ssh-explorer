@@ -227,6 +227,7 @@ function refreshListFile() {
     })
     $(".list-file").on("contextmenu",function(e){
         contextPath = actualPath+$(this).attr('data-name');
+        contextChmod = $(this).attr('data-rights');
         console.log(contextPath);
         $('#tooltip').css({
             top: (($(window).height() - 50) > (e.pageY + $('#tooltip').height()) ? e.pageY : (e.pageY + 2 - $('#tooltip').height())) + 'px',
