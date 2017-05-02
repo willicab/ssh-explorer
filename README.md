@@ -8,15 +8,14 @@ A simple web based SSH client
 * Open image files
 * Execute custom bash comands
 * Show files information
-
-## TODO
-* Check Rights of directories and files
 * Copy directories and files
 * Move directories and files
 * Rename directories and files
 * Delete directories and files
-* Zip directories and files
-* Unzip directories and files
+
+## TODO
+* Check Rights of directories and files
+* Compress directories and files
+* UnCompress directories and files
+* Upload directories and files
 * Download directories and files
-
-
