@@ -14,8 +14,9 @@ A simple web based SSH client
 * Delete directories and files
 * Compress directories and files
 * Extract directories and files
+* Check Rights of directories and files
 
 ## TODO
-* Check Rights of directories and files
 * Upload directories and files
 * Download directories and files
+

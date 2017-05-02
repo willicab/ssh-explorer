@@ -238,10 +238,13 @@
                                 <div class="col-md-3"><input data-value="2" id="othersWrite" type="checkbox"></div>
                                 <div class="col-md-3"><input data-value="1" id="othersExec" type="checkbox"></div>
                             </div>
+                          	<div class="row">
+                              	<div class="col-md-12"><input data-value="1" id="chmodRecursive" type="checkbox"> Recursive</div>
+                          	</div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-success" data-dismiss="modal" id="btnChmodAccept">Accept</button>
+                            <button type="button" class="btn btn-success" id="btnChmodAccept">Accept</button>
                         </div>
                     </div>
                 </div>
@@ -399,8 +402,6 @@
                     file = contextPath.split('/');
                     $('#dialogChmodLabel').text('Chmod '+file[file.length - 1]);
                     $('#dialogChmod').modal('show');
-                });
-                $('#dialogChmod').on('shown.bs.modal', function() {
                     $('#ownerRead').prop('checked', (contextChmod.substr(1, 1)!='-'));
                     $('#ownerWrite').prop('checked', (contextChmod.substr(2, 1)!='-'));
                     $('#ownerExec').prop('checked', (contextChmod.substr(3, 1)!='-'));
@@ -410,15 +411,14 @@
                     $('#othersRead').prop('checked', (contextChmod.substr(7, 1)!='-'));
                     $('#othersWrite').prop('checked', (contextChmod.substr(8, 1)!='-'));
                     $('#othersExec').prop('checked', (contextChmod.substr(9, 1)!='-'));
-                    console.log(contextChmod.substr(1, 1)!='-');
-                    console.log(contextChmod.substr(2, 1)!='-');
-                    console.log(contextChmod.substr(3, 1)!='-');
-                    console.log(contextChmod.substr(4, 1)!='-');
-                    console.log(contextChmod.substr(5, 1)!='-');
-                    console.log(contextChmod.substr(6, 1)!='-');
-                    console.log(contextChmod.substr(7, 1)!='-');
-                    console.log(contextChmod.substr(8, 1)!='-');
-                    console.log(contextChmod.substr(9, 1)!='-');
+                });
+              	$('#btnChmodAccept').click(function(){
+                	ownerRight = ($('#ownerRead').is(":checked")?4:0)+($('#ownerWrite').is(":checked")?2:0)+($('#ownerExec').is(":checked")?1:0);
+                	groupRight = ($('#groupRead').is(":checked")?4:0)+($('#groupWrite').is(":checked")?2:0)+($('#groupExec').is(":checked")?1:0);
+                	othersRight = ($('#othersRead').is(":checked")?4:0)+($('#othersWrite').is(":checked")?2:0)+($('#othersExec').is(":checked")?1:0);
+                  	rights = String(ownerRight)+String(groupRight)+String(othersRight);
+                    file = contextPath.split('/');
+                    chmod(actualPath, file[file.length - 1], rights, $('#chmodRecursive').is(":checked"));
                 });
                 $("#btnCompress").click(function(){
                     $('#dialogCompress').modal('show');
@@ -451,3 +451,4 @@
         </script>
     </body>
 </html>
+

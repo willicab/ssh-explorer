@@ -59,6 +59,15 @@ function refreshList(data) {
     }
 }
 
+function chmod(path, file, rights, recursive) {
+    $('#modalWait').fadeIn();
+    console.log('chmod '+path+' '+file+' '+rights+' '+recursive);
+    $.post("include/chmod.php", {host:host, port:port, username:username, password:password, path:path, file:file, rights:rights, recursive:recursive}, function( data ) {
+        $('#dialogChmod').modal('hide');
+        refreshList(data);
+    }).always(function() {$('#modalWait').fadeOut();});
+}
+
 function compress(path, orig, name, type) {
     $('#modalWait').fadeIn();
     console.log('compress '+path+' '+orig+' '+name+' '+type);
@@ -273,3 +282,5 @@ function setMode(fileName) {
     } else {
     }
 }
+
+
