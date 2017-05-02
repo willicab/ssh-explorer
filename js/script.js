@@ -149,7 +149,7 @@ function cat(path) {
     console.log('cat '+path);
     $('#modalWait').fadeIn();
     $.post("include/cat.php", {host:host, port:port, username:username, password:password, path:path}, function( data ) {
-        console.log(data);
+        //console.log(data);
         json = JSON.parse(data);
         var mixedMode = {
            name: "htmlmixed",
@@ -193,7 +193,7 @@ function refreshListFile() {
         if ($(this).attr('data-mimeType') == 'inode/directory') {
             actualPath += $(this).attr('data-name') + '/';
             cd(actualPath);
-        } else if (mime1 == 'text' || mime2 == 'x-empty') {
+        } else if (mime1 == 'text' || mime2 == 'x-empty' || mime2 == 'xml') {
             cat(actualPath+$(this).attr('data-name'));
         } else if (mime1 == 'image') {
             getImage(actualPath+$(this).attr('data-name'), $(this).attr('data-mimeType'));
