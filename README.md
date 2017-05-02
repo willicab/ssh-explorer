@@ -12,10 +12,10 @@ A simple web based SSH client
 * Move directories and files
 * Rename directories and files
 * Delete directories and files
+* Compress directories and files
+* Extract directories and files
 
 ## TODO
 * Check Rights of directories and files
-* Compress directories and files
-* UnCompress directories and files
 * Upload directories and files
 * Download directories and files

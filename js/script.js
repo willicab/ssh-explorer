@@ -64,7 +64,15 @@ function compress(path, orig, name, type) {
     console.log('compress '+path+' '+orig+' '+name+' '+type);
     $.post("include/compress.php", {host:host, port:port, username:username, password:password, path:path, orig:orig, name:name, type:type}, function( data ) {
         $('#dialogCompress').modal('hide');
-        console.log(data);
+        refreshList(data);
+    }).always(function() {$('#modalWait').fadeOut();});
+}
+
+function extract(path, name) {
+    $('#modalWait').fadeIn();
+    type = (name.substr(-6) == 'tar.gz' ? 'tar.gz' : (name.substr(-3) == 'tar' ? 'tar' : (name.substr(-2) == 'gz' ? 'gz' : (name.substr(-3) == 'zip' ? 'zip' : ''))));
+    console.log('extract '+path+' '+name+' '+type);
+    $.post("include/extract.php", {host:host, port:port, username:username, password:password, path:path, name:name, type:type}, function( data ) {
         refreshList(data);
     }).always(function() {$('#modalWait').fadeOut();});
 }
