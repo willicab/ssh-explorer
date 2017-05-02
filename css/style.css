@@ -67,8 +67,12 @@ input {
   	height: 100% !important;
 }
 .list-group-item {
+    background-color: #fff;
     padding: 0 0 0 2rem!important;
     line-height: 3.5rem;
+}
+.list-group-item div {
+    background-color: #fff;
 }
 /*.action {display:none;}*/
 @media only screen and (max-width: 767px) {
