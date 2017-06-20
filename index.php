@@ -54,6 +54,9 @@
                                 <button id="btnSysInfo" type="button" class="btn btn-default">
                                     <img src="img/information.png" width="16">
                                 </button>
+                                <button id="btnProcesses" type="button" class="btn btn-default">
+                                    <img src="img/application.png" width="16">
+                                </button>
                             </span>
                             <input type="text" class="form-control" id="titlePath" value="/">
                             <span class="input-group-btn" style="width:1px">
@@ -177,6 +180,37 @@
                     </div>
                 </div>
             </div>
+            <!-- Modal Processes-->
+            <div class="modal fade" id="dialogProcesses" tabindex="-1" role="dialog" aria-labelledby="dialogProcessesLabel" data-action="">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="dialogProcessesLabel">User Processes</h4>
+                        </div>
+                        <div class="modal-body">
+                            <table id="tblProcesses" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>PID</th>
+                                        <th>CPU&nbsp;%</th>
+                                        <th>MEM&nbsp;%</th>
+                                        <th>START</th>
+                                        <th>TIME</th>
+                                        <th>COMMAND</th>
+                                        <th><img src="img/delete.png"style="width:16px"></th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="btnKillProcesses" class="btn btn-danger">Kill Processes</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- Modal Compress-->
             <div class="modal fade" id="dialogCompress" tabindex="-1" role="dialog" aria-labelledby="dialogCompressLabel" data-action="">
                 <div class="modal-dialog modal-md" role="document">
@@ -275,6 +309,11 @@
             var txtCodeEditor = '';
             var contextPath = '';
             var contextChmod = '';
+            var countChecked = function() {
+              var n = $(".chkProcess:checked").length;
+              console.log(n);
+              $("#btnKillProcesses").prop("disabled", (n === 0 ? true : false));
+            };
             $(document).ready(function () {
                 CodeMirror.modeURL = "js/mode/%N/%N.js";
                 var mixedMode = {
@@ -338,6 +377,19 @@
                 });
                 $('#btnSysInfo').click(function(){
                     sysInfo();
+                });
+                $('#btnProcesses').click(function(){
+                    ps();
+                });
+                $('#btnKillProcesses').click(function(){
+                    if (confirm("Can you kill these processes?")) {
+                        var processes = '';
+                        $('.chkProcess:checked').each(function(){
+                            processes += $(this).attr('data-pid')+' ';
+                        });
+                        //console.log(processes);
+                        kill(processes);
+                    }
                 });
                 $("#txtDialogInput").keypress(function(e) {
                     if(e.which == 13) {
@@ -451,4 +503,3 @@
         </script>
     </body>
 </html>
-
