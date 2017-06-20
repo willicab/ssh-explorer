@@ -15,8 +15,8 @@ A simple web based SSH client
 * Compress directories and files
 * Extract directories and files
 * Check Rights of directories and files
+* Processes Management
 
 ## TODO
 * Upload directories and files
 * Download directories and files
-

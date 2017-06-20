@@ -59,10 +59,59 @@ function refreshList(data) {
     }
 }
 
+function ps() {
+    $('#modalWait').fadeIn();
+    console.log('ps ux');
+    $.post("include/ps.php", {host:host, port:port, username:username, password:password}, function( data ) {
+        json = JSON.parse(data);
+        html = '';
+        $.each(json.data, function(index, value) {
+            html += '<tr>\n';
+            html += '<td>'+value.pid+'</td>\n';
+            html += '<td>'+value.cpu+'</td>\n';
+            html += '<td>'+value.mem+'</td>\n';
+            html += '<td>'+value.start+'</td>\n';
+            html += '<td>'+value.time+'</td>\n';
+            html += '<td>'+value.cmd+'</td>\n';
+            html += '<td><input type="checkbox" class="chkProcess" data-pid="'+value.pid+'"></td>\n';
+            html += '</tr>\n';
+        });
+        $('#tblProcesses tbody').html(html);
+        $("#btnKillProcesses").prop("disabled", true);
+        $(".chkProcess").on("click", countChecked );
+        $('#dialogProcesses').modal('show');
+    }).always(function() {$('#modalWait').fadeOut();});
+}
+
+function kill(processes) {
+    $('#modalWait').fadeIn();
+    console.log('kill -9 '+processes);
+    $.post("include/kill.php", {host:host, port:port, username:username, password:password, processes:processes}, function( data ) {
+        json = JSON.parse(data);
+        html = '';
+        $.each(json.data, function(index, value) {
+            html += '<tr>\n';
+            html += '<td>'+value.pid+'</td>\n';
+            html += '<td>'+value.cpu+'</td>\n';
+            html += '<td>'+value.mem+'</td>\n';
+            html += '<td>'+value.start+'</td>\n';
+            html += '<td>'+value.time+'</td>\n';
+            html += '<td>'+value.cmd+'</td>\n';
+            html += '<td><input type="checkbox" class="chkProcess" data-pid="'+value.pid+'"></td>\n';
+            html += '</tr>\n';
+        });
+        $('#tblProcesses tbody').html(html);
+        $("#btnKillProcesses").prop("disabled", true);
+        $(".chkProcess").on("click", countChecked );
+        $('#dialogProcesses').modal('show');
+    }).always(function() {$('#modalWait').fadeOut();});
+}
+
 function chmod(path, file, rights, recursive) {
     $('#modalWait').fadeIn();
     console.log('chmod '+path+' '+file+' '+rights+' '+recursive);
     $.post("include/chmod.php", {host:host, port:port, username:username, password:password, path:path, file:file, rights:rights, recursive:recursive}, function( data ) {
+
         $('#dialogChmod').modal('hide');
         refreshList(data);
     }).always(function() {$('#modalWait').fadeOut();});
@@ -283,9 +332,3 @@ function setMode(fileName) {
     } else {
     }
 }
-
-
-
-
-
-
