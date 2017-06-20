@@ -146,10 +146,10 @@ function remove(path, rmPath) {
     }).always(function() {$('#modalWait').fadeOut();});
 }
 
-function saveText(path, text) {
-    console.log('save '+path);
+function saveText(path, file, text) {
+    console.log('save '+file);
     $('#modalWait').fadeIn();
-    $.post("include/saveText.php", {host:host, port:port, username:username, password:password, path:path, text:text}, function( data ) {
+    $.post("include/saveText.php", {host:host, port:port, username:username, password:password, path:path, file:file, text:text}, function( data ) {
       	refreshList(data);
       	alert('Saved');
     }).always(function() {$('#modalWait').fadeOut();});
@@ -283,6 +283,8 @@ function setMode(fileName) {
     } else {
     }
 }
+
+
 
 
 

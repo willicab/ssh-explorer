@@ -373,7 +373,7 @@
                     $('#dialogCommand').modal('show');
                 });
                 $('#btnEditorSave').click(function(){
-                    saveText($('#editor').attr('data-file'), txtCodeEditor.getValue());
+                    saveText(actualPath, $('#editor').attr('data-file'), txtCodeEditor.getValue());
                 });
                 $("#btnCopy").click(function(){
                     $('#dialogInput').attr("data-action", "copy");
@@ -451,4 +451,5 @@
         </script>
     </body>
 </html>
+
 
